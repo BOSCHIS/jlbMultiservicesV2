@@ -1,0 +1,708 @@
+/* variables /////////////////////////////////////////////////////////////////////*/
+@font-face {
+    font-family: "rubik";
+    src: url(../fonts/Rubik-Regular.ttf);
+}
+
+@font-face {
+    font-family: "segoe";
+    src: url(../fonts/segoeuib.ttf);
+}
+
+/* variable taille du splitter pour tous les H2 et H3 dans balise Main */
+main h2::after,
+main h3::after {
+    content: "";
+    display: block;
+    height: 8px;
+    margin-top: 20px;
+    background-color: #155c3b;
+    border-radius: 5px;
+    width: var(--splitter-width, 670px);
+    /* valeur par défaut */
+    max-width: var(--splitter-max-width, 80%);
+    /* permet de garder une taille même sur écran plus petit */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* facilite le responsive, notament pour que les grid restent centrées */
+/* fin variables---------------------------------------------------------------- */
+
+html {
+    background-color: #D0DEDE;
+}
+
+body {
+    font-family: "rubik", sans-serif;
+    font-size: 1.25rem;
+    margin: 0;
+    /* permet d'avoir le footer et header qui colle au navigateur */
+
+    h2,
+    h3 {
+        font-family: "segoe", sans-serif;
+        color: #155c3b;
+    }
+}
+
+/* début header //////////////////////////////////////////////////////////////*/
+header {
+    display: flex;
+    align-items: center;
+    background-color: #F2F2F2;
+    box-shadow: 2px 6px 5px #16593a;
+    gap: 2rem;
+
+    img {
+        width: auto;
+    }
+
+    .active {
+        color: #19779c;
+        font-weight: 700;
+        background-color: rgba(21, 92, 59, 0.12 .5);
+        padding: 1rem 1rem;
+        border-radius: 20px;
+        box-shadow: 1px 1px 5px #0c4358;
+    }
+
+    nav {
+        flex: 1;
+    }
+
+    ul {
+        list-style-type: none;
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        padding-right: 2rem;
+        gap: clamp(1rem, 3vw, 3rem);
+    }
+
+    ul li a {
+        text-decoration: none;
+        font-size: 1.6rem;
+        color: black;
+        font-weight: 1000;
+    }
+
+    ul li a:hover {
+        color: #19779c;
+    }
+}
+
+header ul li a.btnContact {
+    background-color: #16593a;
+    color: white;
+    padding: 1.25rem 1.375rem;
+    font-weight: 300;
+    font-size: 1.9rem;
+    border-radius: 40px;
+    border: solid black 0.5px;
+    box-shadow: 5px 5px 8px -1px rgb(82, 79, 79);
+    margin-right: 3em;
+}
+
+header ul li a.btnContact:hover {
+    background-color: #19779c;
+}
+
+/* MEDIA QUERIES HEADER */
+@media (max-width: 1440px) {
+    header {
+        ul {
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        ul li:last-child {
+            margin-top: 0.6rem;
+        }
+    }
+}
+
+@media (max-width: 1150px) {
+    header {
+        ul li {
+            margin-top: 1em;
+        }
+
+        nav {
+            width: 100%;
+            margin-bottom: 1.5em;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    header {
+        nav {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        ul li a.btnContact {
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+
+    header {
+        flex-direction: column;
+    }
+
+    header ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header ul li a.btnContact {
+        margin-right: 0;
+        padding-top: 10px;
+    }
+}
+
+/* fin header ------------------------------------------- */
+
+.containerBanner {
+    max-width: 90vw;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.columnLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6em;
+    margin-top: 3em;
+    align-items: center;
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 1.25em;
+        margin-bottom: 1.87em;
+    }
+
+    p {
+        font-style: italic;
+        margin-bottom: 3em;
+    }
+}
+
+.icon {
+    background-color: #155c3b;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.call {
+    color: black;
+    text-decoration: none;
+}
+
+.btnDevis {
+    background-color: #155c3b;
+    text-align: center;
+    color: #fff;
+    padding: 1.80rem 1.50rem;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 23px;
+    border: solid black 0.5px;
+    box-shadow: 5px 5px 8px -1px rgb(82, 79, 79);
+}
+
+.btnDevis:hover {
+    background-color: #19779c;
+}
+
+@media (max-width: 1150px) {
+
+    .containerBanner {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .containerBanner {
+        align-items: center;
+        padding: 0 1rem;
+    }
+
+    .columnRight img {
+        max-width: 90vw;
+    }
+}
+
+/* fin banner contact ------------------------------*/
+
+/* Card Entreprise & cadre valeurs JLB MULTISERVICES */
+.entreprise>*,
+.valeurs>* {
+    min-width: 0;
+}
+
+.entreprise,
+.valeurs {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 4vw, 140px);
+    margin: 10px 30px;
+    padding: 10px 60px;
+    background-color: #F2F2F2;
+    box-shadow: 2px 4px 2px #16593a;
+
+    h2 {
+        font-weight: 900;
+        padding-bottom: 12px;
+    }
+
+    h2::after {
+        width: var(--splitter-width, 700px);
+        max-width: 100%;
+    }
+
+    img {
+        max-width: 41vw;
+        height: auto;
+        flex-shrink: 1;
+        border-radius: 40%;
+    }
+
+    a {
+        align-self: flex-end;
+        text-decoration: none;
+        color: #19779c;
+        font-weight: bold;
+        font-size: 22px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 25px;
+    }
+}
+
+.entrepriseText,
+.valeursText {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+}
+
+.entrepriseImage,
+.valeursImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 1230px) {
+
+    .entreprise,
+    .valeurs {
+        flex-direction: column;
+    }
+
+    .entreprise img,
+    .valeurs img {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 865px) {
+
+    .entreprise h2,
+    .valeurs h2 {
+        text-align: center;
+    }
+
+    .entreprise h2::after,
+    .valeurs h2::after {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .entreprise img,
+    .valeurs img {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+/* Fin présentation entreprise--------------------------------------- */
+
+/* grille services 2 colonnes x 3 lignes */
+.services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px 15px;
+    margin: 30px;
+
+    h3 {
+        text-transform: uppercase;
+        padding-bottom: 12px;
+        margin-top: 0px;
+    }
+
+    h3::after {
+        max-width: 100%;
+    }
+
+    article {
+        overflow: hidden;
+    }
+
+    article>div {
+        min-width: 0;
+    }
+
+    .image {
+        display: flex;
+        align-items: center;
+        margin-right: 0.80rem;
+    }
+
+    /* indispensable, sinon les éléments dépassent du cadre*/
+}
+
+.nettoyage,
+.vitres,
+.bricolage,
+.jardinage,
+.debarras,
+.serviceSurMesure {
+    display: flex;
+    gap: 20px;
+    padding: 50px 50px 30px 20px;
+    background: #f2f2f2;
+    box-shadow: 2px 4px 2px #16593a;
+
+    .nettoyageContent,
+    .vitresContent,
+    .bricolageContent,
+    .jardinageContent,
+    .debarrasContent,
+    .serviceSurMesureContent {
+        display: flex;
+        position: relative;
+        flex-direction: column;
+        width: 100%;
+        max-width: 700px;
+        padding-bottom: 35px;
+    }
+
+    a {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        text-decoration: none;
+        color: #19779c;
+        font-weight: bold;
+        font-size: 22px;
+    }
+}
+
+.nettoyage img {
+    width: 120px;
+}
+
+.vitres img,
+.bricolage img {
+    width: 120px;
+}
+
+.jardinage img,
+.debarras img {
+    width: 110px;
+}
+
+@media screen and (max-width: 1200px) {
+    .services {
+        grid-template-columns: 1fr;
+    }
+
+    .services article {
+        margin: 0 auto;
+    }
+
+    .services h3::after {
+        width: 100%;
+    }
+}
+
+@media (max-width: 490px) {
+
+    .nettoyage,
+    .vitres,
+    .bricolage,
+    .jardinage,
+    .debarras,
+    .serviceSurMesure {
+        flex-direction: column;
+        padding: 20px;
+        align-items: center;
+    }
+
+    .serviceSurMesureContent a {
+        text-align: right;
+    }
+}
+
+/* fin vignette------------------------------ */
+
+/* MAP */
+.zoneIntervention>* {
+    min-width: 0;
+}
+
+.zoneIntervention {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+    background-color: #f2f2f2;
+
+    h2 {
+        font-weight: 900;
+        text-align: center;
+        margin: 15px;
+    }
+
+    h2::after {
+        display: none
+    }
+
+    .map {
+        width: 100%;
+        height: 450px;
+    }
+
+    .leaflet-control-attribution.leaflet-control a:first-child {
+        display: none;
+    }
+}
+
+/* début footer */
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 1.5rem;
+    background-color: #F2F2F2;
+    box-shadow: 2px 6px 5px #16593a;
+}
+
+.footerLeft {
+    display: flex;
+    align-items: center;
+
+    a {
+        font-size: 16px;
+        color: #187296;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    ul {
+        list-style: none;
+    }
+}
+
+.footerMiddle {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+        align-self: center;
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        padding-left: 0;
+    }
+
+    ul li a {
+        text-decoration: none;
+        font-size: 1.25rem;
+        color: black;
+        margin: 1.87rem;
+        white-space: nowrap;
+    }
+
+    ul li a:hover {
+        color: #19779c
+    }
+}
+
+.footerRight {
+    display: flex;
+    flex-direction: column;
+    margin-right: 3.1rem;
+
+    h3 {
+        align-self: center;
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    ul li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    p {
+        align-self: flex-end;
+        margin: 8px;
+        text-align: right;
+        font-size: 0.9rem;
+        color: rgb(56, 56, 56);
+    }
+}
+
+@media (max-width: 1170px) {
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .footerRight {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .footerLeft {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .footerLeft ul {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* fin footer------------------------- */
+
+/* flèche retour vers le haut */
+.backToTop {
+    position: fixed;
+    bottom: 23px;
+    right: 14px;
+    width: 65px;
+    height: 65px;
+    border-radius: 30%;
+    background-color: #155c3b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 6px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------------------------------------------- */
+/* État initial : invisible et légèrement décalé */
+.scrollAnimate {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+/* État visible : pleinement visible et position normale */
+.scrollAnimate.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------------------------------------------- */
+.burger,
+.closeNav {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    header {
+        position: relative;
+    }
+
+    header nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #f2f2f2;
+        padding: 3.5rem 0 1rem;
+    }
+
+    header nav.open {
+        display: block;
+    }
+
+    header nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    header nav a {
+        color: rgb(0, 0, 0);
+    }
+
+    .burger {
+        display: block;
+        font-size: 6rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .closeNav {
+        display: none;
+        align-self: flex-end;
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        font-size: 2.6rem;
+        background-color: rgb(138, 138, 138);
+        color: #F2F2F2;
+        border: 1px solid;
+        padding: 0.01rem 0.6rem;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    header nav.open .closeNav {
+        display: block;
+    }
+}

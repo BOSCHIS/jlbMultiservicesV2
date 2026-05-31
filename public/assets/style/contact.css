@@ -1,0 +1,692 @@
+/* variables /////////////////////////////////////////////////////////////////////*/
+@font-face {
+    font-family: "rubik";
+    src: url(../fonts/Rubik-Regular.ttf);
+}
+
+@font-face {
+    font-family: "segoe";
+    src: url(../fonts/segoeuib.ttf);
+}
+
+/* variable taille du splitter pour tous les H2 et H3 dans balise Main */
+main h1::after,
+main h2::after {
+    content: "";
+    display: block;
+    height: 8px;
+    margin-top: 20px;
+    background-color: #155c3b;
+    border-radius: 5px;
+    width: var(--splitter-width, 50em);
+    /* valeur par défaut */
+    max-width: var(--splitter-max-width, 80%);
+    /* permet de garder une taille même sur écran plus petit */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* facilite le responsive, notament pour que les grid restent centrées */
+/* fin variables---------------------------------------------------------------- */
+
+html {
+    background-color: #D0DEDE;
+}
+
+body {
+    font-family: "rubik", sans-serif;
+    font-size: 1.25rem;
+    margin: 0;
+    /* permet d'avoir le footer et header qui colle au navigateur */
+
+    h1,
+    h2,
+    h3 {
+        font-family: "segoe", sans-serif;
+        color: #155c3b;
+    }
+}
+
+/* début header //////////////////////////////////////////////////////////////*/
+header {
+    display: flex;
+    align-items: center;
+    background-color: #F2F2F2;
+    box-shadow: 2px 6px 5px #16593a;
+    gap: 2rem;
+
+    img {
+        width: auto;
+    }
+
+    .active {
+        color: #19779c;
+        font-weight: 700;
+        background-color: rgba(21, 92, 59, 0.12 .5);
+        padding: 1rem 1rem;
+        border-radius: 20px;
+        box-shadow: 1px 1px 5px #0c4358;
+    }
+
+    nav {
+        flex: 1;
+    }
+
+    ul {
+        list-style-type: none;
+        justify-content: space-between;
+        align-items: center;
+        display: flex;
+        padding-right: 2rem;
+        gap: clamp(1rem, 3vw, 3rem);
+    }
+
+    ul li a {
+        text-decoration: none;
+        font-size: 1.6rem;
+        color: black;
+        font-weight: 1000;
+    }
+
+    ul li a:hover {
+        color: #19779c;
+    }
+}
+
+header ul li a.btnContact {
+    background-color: #16593a;
+    color: white;
+    padding: 1.25rem 1.375rem;
+    font-weight: 300;
+    font-size: 1.9rem;
+    border-radius: 40px;
+    border: solid black 0.5px;
+    box-shadow: 5px 5px 8px -1px rgb(82, 79, 79);
+    margin-right: 3em;
+}
+
+header ul li a.btnContact:hover {
+    background-color: #19779c;
+}
+
+/* MEDIA QUERIES HEADER */
+@media (max-width: 1440px) {
+    header {
+        ul {
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        ul li:last-child {
+            margin-top: 0.6rem;
+        }
+    }
+}
+
+@media (max-width: 1150px) {
+    header {
+        ul li {
+            margin-top: 1em;
+        }
+
+        nav {
+            width: 100%;
+            margin-bottom: 1.5em;
+        }
+    }
+}
+
+@media (max-width: 900px) {
+    header {
+        nav {
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        ul li a.btnContact {
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 2rem;
+        }
+    }
+}
+
+@media (max-width: 800px) {
+
+    header {
+        flex-direction: column;
+    }
+
+    header ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    header ul li a.btnContact {
+        margin-right: 0;
+        padding-top: 10px;
+    }
+}
+
+/* fin header ------------------------------------------- */
+
+/* contenu ------------------------------------------------- */
+.globalContact {
+    display: flex;
+    flex-direction: column;
+    background-color: #F2F2F2;
+    box-shadow: 2px 4px 2px #16593a;
+    margin: 0.625rem 5rem;
+    padding: 0.625rem 2.5rem;
+
+
+    h1::after {
+        width: var(--splitter-width, 56.25em);
+    }
+
+    .devisInfo {
+        font-style: italic;
+        padding-top: 1rem;
+    }
+}
+
+.contactSection {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    /* AJOUT IMPORTANT : force à prendre toute la largeur du parent */
+}
+
+.infoContact {
+    display: flex;
+    flex-direction: column;
+    max-width: 29em;
+    border: 2px solid black;
+    padding: 1.875rem 0rem;
+
+    ul {
+        list-style: none;
+        margin: 1.875rem;
+        padding: 0;
+    }
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: 0.8em;
+        margin-bottom: 1em;
+    }
+
+    .map {
+        width: 100%;
+        max-width: 34rem;
+        height: 28rem;
+        margin: 0 auto;
+    }
+
+    #textIntervention {
+        text-align: center;
+        font-style: italic;
+    }
+
+    .leaflet-control-attribution.leaflet-control a:first-child {
+        display: none;
+    }
+}
+
+
+.form {
+    width: 100%;
+    /* Prend toute la place dispo */
+    max-width: 40em;
+    min-width: 0;
+    /* AJOUT MAGIQUE : Autorise le flex item à rétrécir */
+}
+
+/* Formulaire ------------------------------- */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 2.5rem auto;
+    /* auto pour que la margin du form soit identique à celui de infoContact */
+    padding: 1.875rem;
+    border: 1px solid #ddd;
+    border-radius: 0.625rem;
+    background-color: #fafafa;
+
+    /* Titre du fieldset */
+    legend {
+        font-size: 1.8rem;
+        font-weight: bold;
+        padding: 0 0.625rem;
+        color: #16593a;
+    }
+
+    /* Chaque label sur une ligne avec input en dessous*/
+    label {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 0.313rem;
+        font-size: 1.2rem;
+        color: #000000;
+    }
+
+    /* Astérisque obligatoire */
+    .required {
+        color: #c20808;
+        font-size: x-large;
+    }
+
+    .requiredFields {
+        margin: 0;
+        padding: 0;
+        font-size: 1.1rem;
+    }
+}
+
+/* Champs input et textarea */
+.form input,
+.form textarea {
+    width: 100%;
+    /* AJOUT : Force le champ à remplir le parent, pas plus */
+    max-width: 100%;
+    /* AJOUT : Empêche de dépasser même si cols=70 */
+    box-sizing: border-box;
+    /* Normalement tu l'as déjà en global, mais ça sécurise */
+    margin-top: 0.5rem;
+    padding: 0.75rem 0.875rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.form input::placeholder,
+.form textarea::placeholder {
+    font-style: italic;
+}
+
+/* Effet focus */
+.form input:focus,
+.form textarea:focus {
+    box-shadow: 3px 2px 8px rgba(25, 119, 156, 0.6);
+}
+
+/* Checkbox */
+.checkboxCgu {
+    display: flex;
+    gap: 0.625rem;
+    margin-bottom: 0.625rem;
+
+    label {
+        margin-top: 0.50rem;
+        display: inline;
+    }
+
+    input[type="checkbox"] {
+        width: 1.3rem;
+        height: 1.3rem;
+    }
+
+    a {
+        color: #0c6c92;
+    }
+}
+
+
+.messageSuccess {
+    font-style: italic;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: #F2F2F2;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background-color: #0fb87a;
+}
+
+.messageSuccess.close,
+.messageFail.close {
+    display: none
+}
+
+.messageFail {
+    font-style: italic;
+    padding: 1rem;
+    margin-top: 1rem;
+    color: #F2F2F2;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    background-color: #c2163b;
+}
+
+.closeButtonSuccess,
+.closeButtonFail {
+    color: #F2F2F2;
+    font-weight: bold;
+    line-height: 0.4rem;
+    float: right;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+.closeButtonSuccess:hover,
+.closeButtonFail:hover {
+    color: #000000
+}
+
+
+
+
+/* Bouton */
+.form button {
+    width: 100%;
+    padding: 0.875rem;
+    font-size: 1.4rem;
+    font-weight: bold;
+    background-color: #16593a;
+    box-shadow: 5px 5px 8px -1px rgb(82, 79, 79);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+/* Hover bouton */
+.form button:hover {
+    background-color: #19779c;
+    transform: translateY(-4px);
+}
+
+/* Active */
+.form button:active {
+    transform: translateY(0);
+}
+
+@media (max-width: 1660px) {
+    .contactSection {
+        gap: 2.5rem;
+        padding: 0 1.25rem;
+        margin: 0.313rem;
+        flex-direction: column-reverse;
+    }
+
+    .infoContact .map {
+        width: 100%;
+        max-width: 500px;
+        height: 48vh;
+        align-self: center;
+    }
+
+    .globalContact {
+
+        margin: 0.625em 2.5em;
+        padding: 0.625em 2.5em;
+
+    }
+}
+
+@media (max-width: 1290px) {
+    h1 {
+        text-align: center;
+    }
+
+    h1::after {
+        display: block;
+        width: 100%;
+        margin: 0.625em auto 2.5em auto;
+        align-items: center;
+    }
+}
+
+
+@media (max-width: 950px) {
+
+    .globalContact {
+        margin: 0.62rem 1.25rem;
+        padding: 1.25rem;
+    }
+
+    .form {
+        padding: 1.25rem;
+    }
+
+    .infoContact {
+        padding: 1.25rem;
+    }
+
+    .infoContact .map {
+        height: 48vh;
+    }
+}
+
+@media (max-width: 850px) {
+    .globalContact {
+        /* On réduit les marges externes pour gagner de la place */
+        margin: 0.62rem 0.31rem;
+        /* On réduit le padding interne */
+        padding: 0.93rem 0.62rem;
+        width: auto;
+    }
+
+    /* On s'assure que le titre ne casse pas la largeur */
+    .globalContact h1 {
+        font-size: 1.8rem;
+        word-wrap: break-word;
+        /* Coupe les mots si trop longs */
+    }
+
+    /* On ajuste la ligne verte sous le titre */
+    main h1::after,
+    main h2::after {
+        width: 100%;
+        /* S'adapte à la largeur réelle */
+    }
+
+    .form legend {
+        font-size: 1.4rem;
+    }
+}
+
+
+/* -------------------------------- */
+
+/* début footer --------------------------------------------- */
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 1.5rem;
+    background-color: #F2F2F2;
+    box-shadow: 2px 6px 5px #16593a;
+}
+
+.footerLeft {
+    display: flex;
+    align-items: center;
+
+    a {
+        font-size: 1rem;
+        color: #187296;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    ul {
+        list-style: none;
+    }
+}
+
+.footerMiddle {
+    display: flex;
+    flex-direction: column;
+
+    h3 {
+        align-self: center;
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        padding-left: 0;
+    }
+
+    ul li a {
+        text-decoration: none;
+        font-size: 1.25rem;
+        color: black;
+        margin: 1.87rem;
+        white-space: nowrap;
+    }
+
+    ul li a:hover {
+        color: #19779c
+    }
+}
+
+.footerRight {
+    display: flex;
+    flex-direction: column;
+    margin-right: 3.1rem;
+
+    h3 {
+        align-self: center;
+        margin: 0;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    ul li {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    p {
+        align-self: flex-end;
+        margin: 0.5rem;
+        text-align: right;
+        font-size: 0.9rem;
+        color: rgb(56, 56, 56);
+    }
+}
+
+@media (max-width: 1170px) {
+
+    footer {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+    }
+
+    .footerRight {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .footerLeft {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .footerLeft ul {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* fin footer------------------------- */
+
+/* flèche retour vers le haut */
+.backToTop {
+    position: fixed;
+    bottom: 23px;
+    right: 14px;
+    width: 65px;
+    height: 65px;
+    border-radius: 30%;
+    background-color: #155c3b;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 3px 6px 3px rgba(0, 0, 0, 0.2);
+    z-index: 10000;
+}
+
+/* ---------------------------------------------- */
+.burger,
+.closeNav {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    header {
+        position: relative;
+    }
+
+    header nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: #f2f2f2;
+        padding: 3.5rem 0 1rem;
+    }
+
+    header nav.open {
+        display: block;
+    }
+
+    header nav ul {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    header nav a {
+        color: rgb(0, 0, 0);
+    }
+
+    .burger {
+        display: block;
+        font-size: 6rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .closeNav {
+        display: none;
+        align-self: flex-end;
+        position: absolute;
+        top: 0.5rem;
+        right: 1rem;
+        font-size: 2.6rem;
+        background-color: rgb(138, 138, 138);
+        color: #F2F2F2;
+        border: 1px solid;
+        padding: 0.01rem 0.6rem;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+
+    header nav.open .closeNav {
+        display: block;
+    }
+}
