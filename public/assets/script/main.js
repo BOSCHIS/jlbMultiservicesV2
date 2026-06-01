@@ -1,7 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // -------------------------------------------------
-    // Fonction Retour vers le haut
     const backToTop = document.querySelector(".backToTop");
     if (backToTop) {
         backToTop.style.display = "none";
@@ -14,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Menu burger
+
     const burger = document.querySelector(".burger");
     const nav = document.getElementById("nav");
     const closeNav = document.querySelector(".closeNav");
@@ -28,31 +26,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // -------------------------------------------------
-    // Fonction apparition des éléments au scroll
-    // Sélection de tous les éléments à animer
     const objectSelection = document.querySelectorAll('.entreprise, .valeurs, .services article, .zoneIntervention');
 
-    // Ajoute la classe initiale pour animation
     objectSelection.forEach(element => element.classList.add('scrollAnimate'));
 
-    // Création de l'observer
+
     const observer = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('show'); // on déclenche l'animation
+                entry.target.classList.add('show');
             }
         });
     });
 
-    // On observe tous les éléments
+
     objectSelection.forEach(element => observer.observe(element));
 
-    // ----------------------------------------------------------------------------
-    // Map
+
     const mapClass = document.querySelector('.map');
     if (mapClass) {
-        // Évite la double initialisation Leaflet (hot reload Vite)
         if (mapClass._leaflet_id) {
             mapClass._leaflet_id = null;
         }
@@ -91,8 +83,6 @@ document.addEventListener("DOMContentLoaded", () => {
         contactApi();
     }
 
-    // ----------------------------------------------------------------------------
-    // Formulaire de contact
     const form = document.querySelector("form");
     if (form) {
         const messageSuccess = document.querySelector(".messageSuccess");
@@ -108,18 +98,16 @@ document.addEventListener("DOMContentLoaded", () => {
             const successText = document.getElementById("successText");
             const failText = document.getElementById("failText");
 
-            // --------------- case cgu
-            // validation spécifique de la checkbox CGU
+
             if (!cgu.checked) {
-                // message custom
                 alert("Merci de cocher la case confirmant votre acceptation des conditions générales d'utilisation");
-                // UX : focus sur la checkbox
+
                 cgu.focus();
                 return;
             }
 
             try {
-                const response = await fetch("/treatment_contact.php", {
+                const response = await fetch("/contact/send", {
                     method: "POST",
                     body: formData
                 });
@@ -137,14 +125,12 @@ document.addEventListener("DOMContentLoaded", () => {
                     messageSuccess.classList.add("close");
                 }
             } catch (err) {
-                // Ici on capte toute erreur : JSON invalide, serveur indisponible...
                 failText.textContent = "Une erreur est survenue lors de l'envoi du message. Veuillez réessayer.";
                 messageFail.classList.remove("close");
                 messageSuccess.classList.add("close");
             }
         });
 
-        // Message anomalie
         closeMessageSuccess.addEventListener("click", () => {
             messageSuccess.classList.add("close");
         });

@@ -26,4 +26,9 @@ class Router
         $controllerInstance = new $controller();
         $controllerInstance->$function();
     }
+
+    public function post(string $path, string $action): void
+    {
+        $this->routes['POST'][$path] = $action;
+    }
 }

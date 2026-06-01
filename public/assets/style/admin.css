@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #1f2937;
+    min-height: 100vh;
+}
+
+
+
+.adminLogin {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.adminLogo {
+    display: block;
+    width: 180px;
+    margin: 0 auto 2rem auto;
+    object-fit: contain;
+}
+
+.adminCard {
+    width: 100%;
+    max-width: 450px;
+    background-color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+.adminCard h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #16593a;
+}
+
+.adminForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.adminForm label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-weight: 600;
+}
+
+.adminForm input {
+    padding: 0.9rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.adminForm input:focus {
+    outline: none;
+    border-color: #19779c;
+    box-shadow: 0 0 0 3px rgba(25, 119, 156, 0.15);
+}
+
+.adminButton {
+    background-color: #16593a;
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.adminButton:hover {
+    background-color: #12492f;
+}
+
+.adminError {
+    background-color: #ffe2e2;
+    color: #b91c1c;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.adminHeader {
+    margin-bottom: 2rem;
+}
+
+.adminLogoSmall {
+    width: 140px;
+    object-fit: contain;
+}
+
+.adminDashboard {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.dashboardCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+}
+
+.adminDashboard h1 {
+    margin-bottom: 1rem;
+    color: #16593a;
+}
+
+.adminDashboard p {
+    margin-bottom: 2rem;
+}
+
+.adminNav {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.adminNav a {
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    color: #1f2937;
+    transition: 0.2s ease;
+}
+
+.adminNav a:hover {
+    background-color: #16593a;
+    color: white;
+}
+
+.logoutBtn {
+    display: inline-block;
+    margin-top: 3rem;
+    color: #b91c1c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contactsCard {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2rem;
+}
+
+.adminTable th,
+.adminTable td {
+    border: 1px solid #d1d5db;
+    padding: 1rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.adminTable th {
+    background-color: #16593a;
+    color: white;
+}
+
+.messageCell {
+    max-width: 350px;
+    word-break: break-word;
+}
+
+.deleteBtn {
+    text-decoration: none;
+    color: white;
+    background-color: #b91c1c;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+}
+
+.backDashboard {
+    display: inline-block;
+    margin-top: 2rem;
+    text-decoration: none;
+    color: #16593a;
+    font-weight: bold;
+}
+
+.addButton {
+    display: inline-block;
+    text-decoration: none;
+    margin: 1.5rem 0;
+}
+
+.editBtn {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: #19779c;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    margin-right: 0.5rem;
+}
+
+.editBtn:hover {
+    background-color: #135f7d;
+}
+
+.adminForm textarea {
+    padding: 0.9rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.adminForm textarea:focus {
+    outline: none;
+    border-color: #19779c;
+    box-shadow: 0 0 0 3px rgba(25, 119, 156, 0.15);
+}
+
+.serviceActions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.adminForm select {
+    padding: 0.9rem 1rem;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    background-color: white;
+}
+
+.adminForm select:focus {
+    outline: none;
+    border-color: #19779c;
+    box-shadow: 0 0 0 3px rgba(25, 119, 156, 0.15);
+}
+
+.adminServiceImage {
+    width: 90px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.currentImageBox {
+    width: 100%;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.currentImageBox p {
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.adminServiceImage {
+    max-width: 160px;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}

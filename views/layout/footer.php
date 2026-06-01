@@ -41,7 +41,6 @@
 
 </footer>
 
-<!-- bouton scroll top -->
 <a href="#top" class="backToTop" title="Retour en haut de page"
     aria-label="Bouton avec une flèche vers le haut pour retourner en haut de la page">
     <img src="/assets/media/top_arrow.svg" alt="flèche vers le haut">
@@ -50,7 +49,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <?php if (getenv('APP_ENV') !== 'production'): ?>
-    <script type="module" src="http://localhost:5173/assets/script/main.js"></script>
+    <script src="/assets/script/main.js"></script>
 <?php endif; ?>
 </body>
 
