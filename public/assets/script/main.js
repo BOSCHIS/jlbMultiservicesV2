@@ -83,7 +83,8 @@ document.addEventListener("DOMContentLoaded", () => {
         contactApi();
     }
 
-    const form = document.querySelector("form");
+    const form = document.getElementById("contactForm");
+
     if (form) {
         const messageSuccess = document.querySelector(".messageSuccess");
         const messageFail = document.querySelector(".messageFail");
@@ -93,18 +94,17 @@ document.addEventListener("DOMContentLoaded", () => {
         form.addEventListener("submit", async (e) => {
             e.preventDefault();
 
-            const formData = new FormData(form);
             const cgu = document.getElementById("cgu");
             const successText = document.getElementById("successText");
             const failText = document.getElementById("failText");
 
-
             if (!cgu.checked) {
-                alert("Merci de cocher la case confirmant votre acceptation des conditions générales d'utilisation");
-
+                alert("Merci de cocher la case confirmant votre acceptation du traitement de vos données personnelles.");
                 cgu.focus();
                 return;
             }
+
+            const formData = new FormData(form);
 
             try {
                 const response = await fetch("/contact/send", {

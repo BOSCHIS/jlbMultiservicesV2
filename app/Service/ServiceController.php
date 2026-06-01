@@ -27,17 +27,18 @@ class ServiceController
 
     public function show(): void
     {
-        $slug = $_GET['slug'] ?? '';
+        $slug = trim($_GET['slug'] ?? '');
 
-        $conn = Database::connect();
-        $repository = new ServiceRepository($conn);
+        if ($slug === '') {
+            header('Location: /');
+            exit;
+        }
 
-        $service = $repository->findBySlug($slug);
+        $service = $this->repository->findBySlug($slug);
 
         if (!$service) {
-            http_response_code(404);
-            echo "Prestation introuvable";
-            return;
+            header('Location: /');
+            exit;
         }
 
         require_once __DIR__ . '/../../views/services/show.php';

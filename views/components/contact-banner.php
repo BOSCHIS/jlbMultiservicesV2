@@ -16,7 +16,7 @@
                      </a>
                  </li>
              </ul>
-             <a href="/contact.php" class="btnDevis" title="Accéder au formulaire de demande de devis">
+             <a href="/contact" class="btnDevis" title="Accéder au formulaire de demande de devis">
                  Demander un devis
              </a>
              <p class="devisInfo">*Devis gratuit et sans engagement</p>

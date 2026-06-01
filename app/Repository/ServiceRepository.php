@@ -8,8 +8,8 @@ class ServiceRepository
     {
         $result = $this->conn->query(
             "SELECT *
-            FROM service
-            ORDER BY id_service DESC"
+        FROM service
+        ORDER BY display_order ASC, id_service ASC"
         );
 
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -37,18 +37,27 @@ class ServiceRepository
         string $slug,
         string $description,
         int $categoryId,
+        int $displayOrder,
         ?string $image
     ): bool {
         $stmt = $this->conn->prepare(
-            "INSERT INTO service (title, slug, description_service, category_id, image)
-        VALUES (?, ?, ?, ?, ?)"
+            "INSERT INTO service 
+        (title, slug, description_service, category_id, display_order, image)
+        VALUES (?, ?, ?, ?, ?, ?)"
         );
 
-        $stmt->bind_param("sssis", $title, $slug, $description, $categoryId, $image);
+        $stmt->bind_param(
+            "sssiis",
+            $title,
+            $slug,
+            $description,
+            $categoryId,
+            $displayOrder,
+            $image
+        );
 
         return $stmt->execute();
     }
-
     public function findAllCategories(): array
     {
         $result = $this->conn->query(
@@ -74,9 +83,87 @@ class ServiceRepository
         return $result->fetch_assoc() ?: null;
     }
 
+
+    public function shiftOrdersFrom(int $displayOrder): bool
+    {
+        $stmt = $this->conn->prepare(
+            "UPDATE service
+        SET display_order = display_order + 1
+        WHERE display_order >= ?"
+        );
+
+        $stmt->bind_param("i", $displayOrder);
+
+        return $stmt->execute();
+    }
+
+    public function shiftOrdersForUpdate(int $id, int $oldOrder, int $newOrder): bool
+    {
+        if ($newOrder === $oldOrder) {
+            return true;
+        }
+
+        if ($newOrder < $oldOrder) {
+            $stmt = $this->conn->prepare(
+                "UPDATE service
+            SET display_order = display_order + 1
+            WHERE display_order >= ?
+            AND display_order < ?
+            AND id_service != ?"
+            );
+
+            $stmt->bind_param("iii", $newOrder, $oldOrder, $id);
+
+            return $stmt->execute();
+        }
+
+        $stmt = $this->conn->prepare(
+            "UPDATE service
+        SET display_order = display_order - 1
+        WHERE display_order <= ?
+        AND display_order > ?
+        AND id_service != ?"
+        );
+
+        $stmt->bind_param("iii", $newOrder, $oldOrder, $id);
+
+        return $stmt->execute();
+    }
+
+    public function normalizeDisplayOrders(): bool
+    {
+        $result = $this->conn->query(
+            "SELECT id_service
+        FROM service
+        ORDER BY display_order ASC, id_service ASC"
+        );
+
+        $services = $result->fetch_all(MYSQLI_ASSOC);
+
+        $order = 1;
+
+        foreach ($services as $service) {
+            $stmt = $this->conn->prepare(
+                "UPDATE service
+            SET display_order = ?
+            WHERE id_service = ?"
+            );
+
+            $id = (int) $service['id_service'];
+
+            $stmt->bind_param("ii", $order, $id);
+            $stmt->execute();
+
+            $order++;
+        }
+
+        return true;
+    }
+
     public function update(
         int $id,
         int $categoryId,
+        int $displayOrder,
         string $slug,
         string $title,
         string $description,
@@ -86,6 +173,7 @@ class ServiceRepository
             "UPDATE service
         SET 
             category_id = ?,
+            display_order = ?,
             slug = ?,
             title = ?,
             description_service = ?,
@@ -94,8 +182,9 @@ class ServiceRepository
         );
 
         $stmt->bind_param(
-            "issssi",
+            "iissssi",
             $categoryId,
+            $displayOrder,
             $slug,
             $title,
             $description,

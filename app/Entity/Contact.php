@@ -6,7 +6,8 @@ class Contact
         public string $name,
         public string $email,
         public string $message,
-        public ?string $address = null,
-        public ?string $telephone = null
+        public string $address = '',
+        public string $telephone = '',
+        public string $serviceRequested = ''
     ) {}
 }

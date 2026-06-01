@@ -10,8 +10,15 @@ class ContactRepository
     {
         $stmt = $this->conn->prepare(
             "INSERT INTO contact
-            (name_contact, address_contact, telephone_contact, email_contact, message_contact)
-            VALUES (?, ?, ?, ?, ?)"
+            (
+                name_contact,
+                address_contact,
+                telephone_contact,
+                service_requested,
+                email_contact,
+                message_contact
+            )
+            VALUES (?, ?, ?, ?, ?, ?)"
         );
 
         if (!$stmt) {
@@ -19,10 +26,11 @@ class ContactRepository
         }
 
         $stmt->bind_param(
-            "sssss",
+            "ssssss",
             $contact->name,
             $contact->address,
             $contact->telephone,
+            $contact->serviceRequested,
             $contact->email,
             $contact->message
         );
@@ -34,8 +42,8 @@ class ContactRepository
     {
         $result = $this->conn->query(
             "SELECT *
-        FROM contact
-        ORDER BY id_contact DESC"
+            FROM contact
+            ORDER BY id_contact DESC"
         );
 
         return $result->fetch_all(MYSQLI_ASSOC);
@@ -45,7 +53,7 @@ class ContactRepository
     {
         $stmt = $this->conn->prepare(
             "DELETE FROM contact
-        WHERE id_contact = ?"
+            WHERE id_contact = ?"
         );
 
         $stmt->bind_param("i", $id);

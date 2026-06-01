@@ -44,9 +44,12 @@ $pageTitle = "Demandes de devis";
                     <thead>
 
                         <tr>
+                            <th>Date</th>
                             <th>Nom</th>
                             <th>Email</th>
                             <th>Téléphone</th>
+                            <th>Adresse</th>
+                            <th>Prestation</th>
                             <th>Message</th>
                             <th>Action</th>
                         </tr>
@@ -59,33 +62,62 @@ $pageTitle = "Demandes de devis";
 
                             <tr>
 
-                                <td>
+                                <td data-label="Date">
+                                    <?= !empty($contact['sent_at'])
+                                        ? date('d/m/Y H:i', strtotime($contact['sent_at']))
+                                        : 'Non précisée' ?>
+                                </td>
+
+                                <td data-label="Nom">
                                     <?= htmlspecialchars($contact['name_contact']) ?>
                                 </td>
 
-                                <td>
+                                <td data-label="Email">
                                     <?= htmlspecialchars($contact['email_contact']) ?>
                                 </td>
 
-                                <td>
+                                <td data-label="Téléphone">
                                     <?= htmlspecialchars($contact['telephone_contact']) ?>
                                 </td>
 
-                                <td class="messageCell">
-                                    <?= htmlspecialchars($contact['message_contact']) ?>
+                                <td data-label="Adresse">
+                                    <?= !empty($contact['address_contact'])
+                                        ? htmlspecialchars($contact['address_contact'])
+                                        : 'Non précisée' ?>
                                 </td>
 
-                                <td>
+                                <td data-label="Prestation">
+                                    <?= !empty($contact['service_requested'])
+                                        ? htmlspecialchars($contact['service_requested'])
+                                        : 'Non précisée' ?>
+                                </td>
 
-                                    <a
-                                        class="deleteBtn"
-                                        href="/admin/contact/delete?id=<?= $contact['id_contact'] ?>"
-                                        onclick="return confirm('Supprimer cette demande ?')">
+                                <td data-label="Message" class="messageCell">
+                                    <?= nl2br(htmlspecialchars($contact['message_contact'])) ?>
+                                </td>
 
-                                        Supprimer
+                                <td data-label="Action">
+                                    <form
+                                        method="POST"
+                                        action="/admin/contact/delete"
+                                        class="deleteForm"
+                                        onsubmit="return confirm('Supprimer cette demande ?')">
 
-                                    </a>
+                                        <input
+                                            type="hidden"
+                                            name="id"
+                                            value="<?= (int) $contact['id_contact'] ?>">
 
+                                        <input
+                                            type="hidden"
+                                            name="csrf_token"
+                                            value="<?= htmlspecialchars($_SESSION['admin_csrf_token'] ?? '') ?>">
+
+                                        <button type="submit" class="deleteBtn">
+                                            Supprimer
+                                        </button>
+
+                                    </form>
                                 </td>
 
                             </tr>

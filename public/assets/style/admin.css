@@ -283,3 +283,240 @@ body {
     border-radius: 8px;
     object-fit: cover;
 }
+
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.adminTable th,
+.adminTable td {
+    padding: 12px;
+    vertical-align: top;
+    word-break: break-word;
+}
+
+.messageCell {
+    max-width: 320px;
+    white-space: normal;
+    line-height: 1.5;
+}
+
+.contactsCard {
+    width: 95%;
+    max-width: 1400px;
+    overflow-x: auto;
+}
+
+@media screen and (max-width: 1780px) {
+    .contactsCard {
+        width: 95%;
+        overflow-x: auto;
+    }
+
+    .adminTable {
+        min-width: 900px;
+    }
+
+    .adminTable th,
+    .adminTable td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+
+    .messageCell {
+        max-width: 260px;
+    }
+}
+
+.contactsCard {
+    width: 95%;
+    max-width: 1700px;
+    overflow-x: auto;
+}
+
+.adminTable {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.adminTable th,
+.adminTable td {
+    padding: 8px;
+    vertical-align: top;
+    word-break: break-word;
+}
+
+.adminTable th:nth-child(1),
+.adminTable td:nth-child(1) {
+    width: 120px;
+
+}
+
+.adminTable th:nth-child(2),
+.adminTable td:nth-child(2) {
+    width: 140px;
+}
+
+.adminTable th:nth-child(3),
+.adminTable td:nth-child(3) {
+    width: 250px;
+}
+
+.adminTable th:nth-child(4),
+.adminTable td:nth-child(4) {
+    width: 130px;
+}
+
+.adminTable th:nth-child(5),
+.adminTable td:nth-child(5) {
+    width: 230px;
+}
+
+.adminTable th:nth-child(6),
+.adminTable td:nth-child(6) {
+    width: 120px;
+}
+
+.adminTable th:nth-child(7),
+.adminTable td:nth-child(7) {
+    min-width: 260px;
+    width: 320px;
+}
+
+.adminTable th:nth-child(8),
+.adminTable td:nth-child(8) {
+    width: 130px;
+}
+
+.adminTable td:nth-child(8) {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.adminTable td:nth-child(8) .deleteBtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+    .contactsCard {
+        width: 95%;
+        max-width: 520px;
+        overflow-x: visible;
+        padding: 20px;
+    }
+
+    .adminTable,
+    .adminTable thead,
+    .adminTable tbody,
+    .adminTable tr,
+    .adminTable th,
+    .adminTable td {
+        display: block;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: none !important;
+        box-sizing: border-box;
+    }
+
+    .adminTable {
+        border-collapse: separate;
+        border-spacing: 0;
+    }
+
+    .adminTable thead {
+        display: none;
+    }
+
+    .adminTable tr {
+        margin-bottom: 24px;
+        border: 1px solid #d8d8d8;
+        border-radius: 12px;
+        background-color: #ffffff;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .adminTable td {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 13px 15px;
+        border-bottom: 1px solid #eeeeee;
+        text-align: right;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        word-break: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .adminTable td::before {
+        content: attr(data-label);
+        flex: 0 0 105px;
+        font-weight: 700;
+        color: #0f5132;
+        text-align: left;
+    }
+
+    .adminTable td:last-child {
+        border-bottom: none;
+    }
+
+    .adminTable td[data-label="Message"] {
+        display: block;
+        text-align: left;
+    }
+
+    .adminTable td[data-label="Message"]::before {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    .adminTable td[data-label="Action"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .adminTable td[data-label="Action"]::before {
+        display: none;
+    }
+
+    .adminTable td[data-label="Action"] .deleteBtn {
+        margin: 8px auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .adminTable td {
+        display: block;
+        text-align: left;
+        font-size: 0.85rem;
+    }
+
+    .adminTable td::before {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .adminTable td[data-label="Action"] {
+        text-align: center;
+    }
+}
+
+.deleteForm {
+    display: inline-block;
+    margin: 0;
+}
+
+.deleteForm button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}

@@ -690,3 +690,20 @@ footer {
         display: block;
     }
 }
+
+.selectedServiceInfo {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: #f1f5f3;
+    border-left: 4px solid #1f5c3b;
+}
+
+.selectedServiceInfo p {
+    margin: 0;
+}
+
+.hiddenField {
+    display: none;
+}

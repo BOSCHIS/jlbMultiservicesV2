@@ -26,13 +26,14 @@ $router->get('/admin/dashboard', 'AdminDashboardController@index');
 $router->get('/admin/logout', 'AdminAuthController@logout');
 
 $router->get('/admin/contacts', 'AdminContactController@index');
-$router->get('/admin/contact/delete', 'AdminContactController@delete');
+$router->post('/admin/contact/delete', 'AdminContactController@delete');
+$router->post('/admin/service/delete', 'AdminServiceController@delete');
 
 $router->get('/admin/services', 'AdminServiceController@index');
 $router->get('/admin/service/create', 'AdminServiceController@create');
 $router->post('/admin/service/create', 'AdminServiceController@store');
 $router->get('/admin/service/edit', 'AdminServiceController@edit');
 $router->post('/admin/service/edit', 'AdminServiceController@update');
-$router->get('/admin/service/delete', 'AdminServiceController@delete');
+
 
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

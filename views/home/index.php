@@ -20,7 +20,7 @@ require_once __DIR__ . '/../layout/header.php';
             <p>Avec JLB MULTISERVICES, vous bénéficiez d’un interlocuteur unique, d’un travail réalisé avec sérieux,
                 et de solutions pratiques pour vous faire gagner du temps et de la tranquillité.
             </p>
-            <a href="">En savoir plus &gt;</a>
+            <a href="/entreprise">En savoir plus &gt;</a>
         </div>
         <div class="entrepriseImage">
             <img src="/assets/media/local.webp" alt="image d'un local de l'entreprise JLB MULTISERVICES">
@@ -140,7 +140,7 @@ require_once __DIR__ . '/../layout/header.php';
                 simplicité est au cœur de ma démarche, je m’efforce de rendre chaque étape claire et sans
                 complication, de votre demande de devis jusqu’à la réalisation du service.
             </p>
-            <a href="">En savoir plus &gt;</a>
+            <a href="/entreprise">En savoir plus &gt;</a>
         </div>
     </article>
     <?php require_once __DIR__ . '/../components/map.php'; ?>

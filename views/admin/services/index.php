@@ -18,7 +18,8 @@ $pageTitle = "Gestion des prestations";
 
         <section class="adminCard contactsCard">
 
-            <img src="/assets/media/JLB_Multiservices_logo.webp"
+            <img
+                src="/assets/media/JLB_Multiservices_logo.webp"
                 alt="Logo JLB MULTISERVICES"
                 class="adminLogoSmall">
 
@@ -43,8 +44,10 @@ $pageTitle = "Gestion des prestations";
             <?php else : ?>
 
                 <table class="adminTable">
+
                     <thead>
                         <tr>
+                            <th>Ordre</th>
                             <th>Image</th>
                             <th>Titre</th>
                             <th>Description</th>
@@ -53,8 +56,14 @@ $pageTitle = "Gestion des prestations";
                     </thead>
 
                     <tbody>
+
                         <?php foreach ($services as $service) : ?>
+
                             <tr>
+
+                                <td>
+                                    <?= (int) $service['display_order'] ?>
+                                </td>
 
                                 <td>
                                     <?php if (!empty($service['image'])) : ?>
@@ -69,6 +78,7 @@ $pageTitle = "Gestion des prestations";
                                         <span>Aucune image</span>
 
                                     <?php endif; ?>
+                                </td>
 
                                 <td>
                                     <?= htmlspecialchars($service['title']) ?>
@@ -79,21 +89,41 @@ $pageTitle = "Gestion des prestations";
                                 </td>
 
                                 <td>
-                                    <a class="editBtn"
+                                    <a
+                                        class="editBtn"
                                         href="/admin/service/edit?id=<?= (int) $service['id_service'] ?>">
                                         Modifier
                                     </a>
 
-                                    <a class="deleteBtn"
-                                        href="/admin/service/delete?id=<?= (int) $service['id_service'] ?>"
-                                        onclick="return confirm('Supprimer cette prestation ?')">
-                                        Supprimer
-                                    </a>
+                                    <form
+                                        method="POST"
+                                        action="/admin/service/delete"
+                                        class="deleteForm"
+                                        onsubmit="return confirm('Supprimer cette prestation ?')">
+
+                                        <input
+                                            type="hidden"
+                                            name="id"
+                                            value="<?= (int) $service['id_service'] ?>">
+
+                                        <input
+                                            type="hidden"
+                                            name="csrf_token"
+                                            value="<?= htmlspecialchars($_SESSION['admin_csrf_token'] ?? '') ?>">
+
+                                        <button type="submit" class="deleteBtn">
+                                            Supprimer
+                                        </button>
+
+                                    </form>
                                 </td>
 
                             </tr>
+
                         <?php endforeach; ?>
+
                     </tbody>
+
                 </table>
 
             <?php endif; ?>

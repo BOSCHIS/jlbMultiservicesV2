@@ -93,6 +93,18 @@ $pageTitle = "Ajouter une prestation";
                         accept="image/png, image/jpeg, image/webp">
                 </label>
 
+                <label>
+                    Ordre d'affichage
+
+                    <input
+                        type="number"
+                        name="display_order"
+                        min="1"
+                        value="1"
+                        required>
+
+                </label>
+
                 <button type="submit" class="adminButton">
                     Ajouter
                 </button>

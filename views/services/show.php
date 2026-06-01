@@ -29,7 +29,9 @@ $pageTitle = $service['title'];
                 <?= nl2br(htmlspecialchars($service['description_service'])) ?>
             </p>
 
-            <a href="/contact" class="serviceContactButton">
+            <a
+                href="/contact?service=<?= rawurlencode($service['slug']) ?>"
+                class="serviceContactButton">
                 Demander un devis
             </a>
 

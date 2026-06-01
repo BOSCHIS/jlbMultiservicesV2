@@ -123,6 +123,17 @@ $pageTitle = "Modifier une prestation";
 
                     </label>
 
+                    <label>
+                        Ordre d'affichage
+
+                        <input
+                            type="number"
+                            name="display_order"
+                            min="1"
+                            value="<?= (int) $service['display_order'] ?>"
+                            required>
+                    </label>
+
                     <button type="submit" class="adminButton">
                         Enregistrer les modifications
                     </button>
