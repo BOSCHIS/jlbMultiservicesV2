@@ -35,6 +35,10 @@ $pageTitle = "Dashboard administrateur";
                 Demandes de devis
             </a>
 
+            <a href="/admin/categories" class="adminButton">
+                Gérer les catégories
+            </a>
+
             <a href="/admin/services">
                 Prestations
             </a>

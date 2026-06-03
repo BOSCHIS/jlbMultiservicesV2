@@ -1,52 +1,28 @@
 <?php
 
 require_once __DIR__ . '/../Core/Database.php';
-require_once __DIR__ . '/../Repository/ServiceRepository.php';
+require_once __DIR__ . '/../Repository/CategoryRepository.php';
 
-class AdminServiceController
+class AdminCategoryController
 {
-    private ServiceRepository $repository;
+    private CategoryRepository $repository;
 
     public function __construct()
     {
         $conn = Database::connect();
 
-        $this->repository = new ServiceRepository($conn);
+        $this->repository = new CategoryRepository($conn);
     }
 
     private function checkAdmin(): void
     {
         if (empty($_SESSION['admin'])) {
-
             header('Location: /admin/login');
-
             exit;
         }
     }
 
-    public function index(): void
-    {
-        $this->checkAdmin();
-
-        if (empty($_SESSION['admin_csrf_token'])) {
-            $_SESSION['admin_csrf_token'] = bin2hex(random_bytes(32));
-        }
-
-        $services = $this->repository->findAll();
-
-        require_once __DIR__ . '/../../views/admin/services/index.php';
-    }
-
-    public function create(): void
-    {
-        $this->checkAdmin();
-
-        $categories = $this->repository->findAllCategories();
-
-        require_once __DIR__ . '/../../views/admin/services/create.php';
-    }
-
-    private function uploadServiceImage(array $file): ?string
+    private function uploadCategoryImage(array $file): ?string
     {
         if (
             empty($file['name'])
@@ -55,13 +31,13 @@ class AdminServiceController
             return null;
         }
 
-        $maxSize = 2 * 1024 * 1024; // 2 Mo
+        $maxSize = 25 * 1024 * 1024;
 
         if ($file['size'] > $maxSize) {
             return null;
         }
 
-        $uploadDirectory = __DIR__ . '/../../public/assets/uploads/services/';
+        $uploadDirectory = __DIR__ . '/../../public/assets/media/';
 
         if (!is_dir($uploadDirectory)) {
             mkdir($uploadDirectory, 0777, true);
@@ -91,7 +67,7 @@ class AdminServiceController
             return null;
         }
 
-        $fileName = uniqid('service_', true) . '.' . $extension;
+        $fileName = uniqid('category_', true) . '.' . $extension;
         $destination = $uploadDirectory . $fileName;
 
         if (!move_uploaded_file($file['tmp_name'], $destination)) {
@@ -101,40 +77,59 @@ class AdminServiceController
         return $fileName;
     }
 
+    public function index(): void
+    {
+        $this->checkAdmin();
+
+        if (empty($_SESSION['admin_csrf_token'])) {
+            $_SESSION['admin_csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        $categories = $this->repository->findAll();
+
+        require_once __DIR__ . '/../../views/admin/categories/index.php';
+    }
+
+    public function create(): void
+    {
+        $this->checkAdmin();
+
+        require_once __DIR__ . '/../../views/admin/categories/create.php';
+    }
+
     public function store(): void
     {
         $this->checkAdmin();
 
-        $title = trim($_POST['title'] ?? '');
+        $name = trim($_POST['name'] ?? '');
         $slug = trim($_POST['slug'] ?? '');
         $description = trim($_POST['description'] ?? '');
-        $categoryId = (int) ($_POST['category_id'] ?? 0);
         $displayOrder = (int) ($_POST['display_order'] ?? 1);
+        $isActive = isset($_POST['is_active']) ? 1 : 0;
 
         if ($displayOrder < 1) {
             $displayOrder = 1;
         }
 
-        $imagePath = null;
+        $imageName = null;
 
         if (isset($_FILES['image'])) {
-            $imagePath = $this->uploadServiceImage($_FILES['image']);
+            $imageName = $this->uploadCategoryImage($_FILES['image']);
         }
-
         $this->repository->shiftOrdersFrom($displayOrder);
 
         $this->repository->create(
-            $title,
+            $name,
             $slug,
             $description,
-            $categoryId,
+            $imageName,
             $displayOrder,
-            $imagePath
+            $isActive
         );
 
         $this->repository->normalizeDisplayOrders();
 
-        header('Location: /admin/services');
+        header('Location: /admin/categories');
         exit;
     }
 
@@ -145,20 +140,18 @@ class AdminServiceController
         $id = (int) ($_GET['id'] ?? 0);
 
         if ($id <= 0) {
-            header('Location: /admin/services');
+            header('Location: /admin/categories');
             exit;
         }
 
-        $service = $this->repository->findById($id);
+        $category = $this->repository->findById($id);
 
-        if (!$service) {
-            header('Location: /admin/services');
+        if (!$category) {
+            header('Location: /admin/categories');
             exit;
         }
 
-        $categories = $this->repository->findAllCategories();
-
-        require_once __DIR__ . '/../../views/admin/services/edit.php';
+        require_once __DIR__ . '/../../views/admin/categories/edit.php';
     }
 
     public function update(): void
@@ -168,38 +161,38 @@ class AdminServiceController
         $id = (int) ($_GET['id'] ?? 0);
 
         if ($id <= 0) {
-            header('Location: /admin/services');
+            header('Location: /admin/categories');
             exit;
         }
 
-        $service = $this->repository->findById($id);
+        $category = $this->repository->findById($id);
 
-        if (!$service) {
-            header('Location: /admin/services');
+        if (!$category) {
+            header('Location: /admin/categories');
             exit;
         }
 
-        $categoryId = (int) ($_POST['category_id'] ?? 0);
-        $displayOrder = (int) ($_POST['display_order'] ?? 1);
+        $name = trim($_POST['name'] ?? '');
         $slug = trim($_POST['slug'] ?? '');
-        $title = trim($_POST['title'] ?? '');
         $description = trim($_POST['description'] ?? '');
+        $displayOrder = (int) ($_POST['display_order'] ?? 1);
+        $isActive = isset($_POST['is_active']) ? 1 : 0;
 
         if ($displayOrder < 1) {
             $displayOrder = 1;
         }
 
-        $oldOrder = (int) $service['display_order'];
-        $imageName = $service['image'];
+        $imageName = $category['image_category'];
+        $oldOrder = (int) $category['display_order'];
 
         if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
-            $newImageName = $this->uploadServiceImage($_FILES['image']);
+            $newImageName = $this->uploadCategoryImage($_FILES['image']);
 
             if ($newImageName !== null) {
-                $uploadDirectory = __DIR__ . '/../../public/assets/uploads/services/';
+                $uploadDirectory = __DIR__ . '/../../public/assets/media/';
 
-                if (!empty($service['image'])) {
-                    $oldImagePath = $uploadDirectory . $service['image'];
+                if (!empty($category['image_category'])) {
+                    $oldImagePath = $uploadDirectory . $category['image_category'];
 
                     if (file_exists($oldImagePath)) {
                         unlink($oldImagePath);
@@ -218,17 +211,17 @@ class AdminServiceController
 
         $this->repository->update(
             $id,
-            $categoryId,
-            $displayOrder,
+            $name,
             $slug,
-            $title,
             $description,
-            $imageName
+            $imageName,
+            $displayOrder,
+            $isActive
         );
 
         $this->repository->normalizeDisplayOrders();
 
-        header('Location: /admin/services');
+        header('Location: /admin/categories');
         exit;
     }
 
@@ -241,21 +234,34 @@ class AdminServiceController
             || empty($_SESSION['admin_csrf_token'])
             || !hash_equals($_SESSION['admin_csrf_token'], $_POST['csrf_token'])
         ) {
-            header('Location: /admin/services');
+            header('Location: /admin/categories');
             exit;
         }
 
         $id = (int) ($_POST['id'] ?? 0);
 
         if ($id <= 0) {
-            header('Location: /admin/services');
+            header('Location: /admin/categories');
             exit;
         }
 
-        $service = $this->repository->findById($id);
+        $category = $this->repository->findById($id);
 
-        if ($service && !empty($service['image'])) {
-            $imagePath = __DIR__ . '/../../public/assets/uploads/services/' . $service['image'];
+        if (!$category) {
+            header('Location: /admin/categories');
+            exit;
+        }
+
+        $servicesCount = $this->repository->countServicesByCategoryId($id);
+
+        if ($servicesCount > 0) {
+            $_SESSION['admin_error'] = "Impossible de supprimer cette catégorie : elle contient encore des prestations.";
+            header('Location: /admin/categories');
+            exit;
+        }
+
+        if (!empty($category['image_category'])) {
+            $imagePath = __DIR__ . '/../../public/assets/media/' . $category['image_category'];
 
             if (file_exists($imagePath)) {
                 unlink($imagePath);
@@ -266,7 +272,9 @@ class AdminServiceController
 
         $this->repository->normalizeDisplayOrders();
 
-        header('Location: /admin/services');
+        $_SESSION['admin_success'] = "La catégorie a bien été supprimée.";
+
+        header('Location: /admin/categories');
         exit;
     }
 }

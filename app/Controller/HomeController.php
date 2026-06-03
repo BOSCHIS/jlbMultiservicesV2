@@ -1,7 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../Core/Database.php';
-require_once __DIR__ . '/../Repository/ServiceRepository.php';
+require_once __DIR__ . '/../Repository/CategoryRepository.php';
 
 class HomeController
 {
@@ -9,9 +9,9 @@ class HomeController
     {
         $conn = Database::connect();
 
-        $serviceRepository = new ServiceRepository($conn);
+        $categoryRepository = new CategoryRepository($conn);
 
-        $services = $serviceRepository->findAll();
+        $categories = $categoryRepository->findActive();
 
         require_once __DIR__ . '/../../views/home/index.php';
     }

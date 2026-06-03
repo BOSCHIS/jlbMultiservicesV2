@@ -8,12 +8,14 @@ class MailService
     private const EMAIL_EXPEDITEUR = 'no-reply@jlb-multiservices.fr';
 
     private string $emailDestinataire;
+    private string $appEnv;
     private string $smtpHost = '127.0.0.1';
     private int $smtpPort = 1025;
 
     public function __construct()
     {
         $this->emailDestinataire = $this->getEnvValue('EMAIL_DESTINATAIRE');
+        $this->appEnv = $this->getEnvValue('APP_ENV') ?: 'production';
     }
 
     public function sendContactEmail(Contact $contact): bool
@@ -56,7 +58,16 @@ class MailService
         $rawEmail .= implode("\r\n", $headers) . "\r\n\r\n";
         $rawEmail .= $body;
 
-        return $this->sendWithSmtp($this->emailDestinataire, $rawEmail);
+        if ($this->appEnv === 'local') {
+            return $this->sendWithSmtp($this->emailDestinataire, $rawEmail);
+        }
+
+        return $this->sendWithPhpMail(
+            $this->emailDestinataire,
+            $subject,
+            $body,
+            implode("\r\n", $headers)
+        );
     }
 
     private function sendWithSmtp(string $to, string $rawEmail): bool
@@ -89,6 +100,20 @@ class MailService
         fclose($socket);
 
         return true;
+    }
+
+    private function sendWithPhpMail(
+        string $to,
+        string $subject,
+        string $body,
+        string $headers
+    ): bool {
+        return mail(
+            $to,
+            $this->encodeSubject($subject),
+            $body,
+            $headers
+        );
     }
 
     private function writeSmtp($socket, string $command): void

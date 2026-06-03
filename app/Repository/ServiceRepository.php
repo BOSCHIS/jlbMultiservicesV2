@@ -206,4 +206,53 @@ class ServiceRepository
 
         return $stmt->execute();
     }
+
+    public function findCategoryBySlug(string $slug): ?array
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT *
+        FROM category
+        WHERE slug_category = ?"
+        );
+
+        $stmt->bind_param("s", $slug);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        return $result->fetch_assoc() ?: null;
+    }
+
+    public function findByCategorySlug(string $slug): array
+    {
+        $stmt = $this->conn->prepare(
+            "SELECT service.*
+        FROM service
+        INNER JOIN category
+            ON service.category_id = category.id_category
+        WHERE category.slug_category = ?
+        ORDER BY service.display_order ASC, service.id_service ASC"
+        );
+
+        $stmt->bind_param("s", $slug);
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
+    public function findActiveCategories(): array
+    {
+        $result = $this->conn->query(
+            "SELECT *
+        FROM category
+        WHERE is_active = 1
+        ORDER BY display_order ASC, id_category ASC"
+        );
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
 }

@@ -26,35 +26,33 @@ class ServiceController
         $service = $this->repository->findBySlug($slug);
 
         if (!$service) {
-            http_response_code(404);
-            require_once __DIR__ . '/../../views/services/not-found.php';
-            return;
+            header('Location: /');
+            exit;
         }
 
         require_once __DIR__ . '/../../views/services/show.php';
     }
 
-    public function nettoyage(): void
+    private function showCategory(string $slug): void
     {
-        header('Location: /service?slug=nettoyage');
-        exit;
+        if (!$this->showDynamicCategory($slug)) {
+            header('Location: /');
+            exit;
+        }
     }
 
-    public function bricolage(): void
+    public function showDynamicCategory(string $slug): bool
     {
-        header('Location: /service?slug=bricolage');
-        exit;
-    }
+        $category = $this->repository->findCategoryBySlug($slug);
 
-    public function jardinage(): void
-    {
-        header('Location: /service?slug=jardinage');
-        exit;
-    }
+        if (!$category) {
+            return false;
+        }
 
-    public function debarras(): void
-    {
-        header('Location: /service?slug=debarras');
-        exit;
+        $services = $this->repository->findByCategorySlug($slug);
+
+        require_once __DIR__ . '/../../views/services/category.php';
+
+        return true;
     }
 }

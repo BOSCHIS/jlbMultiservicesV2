@@ -520,3 +520,31 @@ body {
     cursor: pointer;
     font-family: inherit;
 }
+
+.checkboxAdmin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkboxAdmin input {
+    width: auto;
+}
+
+.adminAlertError {
+    margin: 20px 0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    background-color: #f8d7da;
+    color: #842029;
+    font-weight: 600;
+}
+
+.adminAlertSuccess {
+    margin: 20px 0;
+    padding: 14px 18px;
+    border-radius: 8px;
+    background-color: #d1e7dd;
+    color: #0f5132;
+    font-weight: 600;
+}

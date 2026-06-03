@@ -29,44 +29,44 @@ require_once __DIR__ . '/../layout/header.php';
 
     <section class="services">
 
-        <?php if (!empty($services)) : ?>
+        <?php if (!empty($categories)) : ?>
 
-            <?php foreach ($services as $service) : ?>
+            <?php foreach ($categories as $category) : ?>
 
                 <?php
-                $slugClass = htmlspecialchars($service['slug']);
-                $contentClass = htmlspecialchars($service['slug']) . 'Content';
+                $slugClass = htmlspecialchars($category['slug_category']);
+                $contentClass = htmlspecialchars($category['slug_category']) . 'Content';
                 ?>
 
-                <article class="serviceItem <?= $slugClass ?>">
+                <article class="serviceItem">
 
                     <div class="image">
 
-                        <?php if (!empty($service['image'])) : ?>
+                        <?php if (!empty($category['image_category'])) : ?>
 
                             <img
-                                src="/assets/uploads/services/<?= rawurlencode($service['image']) ?>"
-                                alt="<?= htmlspecialchars($service['title']) ?>">
+                                src="/assets/media/<?= rawurlencode($category['image_category']) ?>"
+                                alt="<?= htmlspecialchars($category['name_category']) ?>">
 
                         <?php else : ?>
 
                             <img
-                                src="/assets/media/service_sur_mesure.webp"
-                                alt="Image par défaut JLB MULTISERVICES">
+                                src="/assets/media/default_service.webp"
+                                alt="Image par défaut d’une catégorie JLB MULTISERVICES">
 
                         <?php endif; ?>
 
                     </div>
 
-                    <div class="<?= $contentClass ?>">
+                    <div class="serviceContent">
 
-                        <h3><?= htmlspecialchars($service['title']) ?></h3>
+                        <h3><?= htmlspecialchars($category['name_category']) ?></h3>
 
                         <p>
-                            <?= nl2br(htmlspecialchars($service['description_service'])) ?>
+                            <?= nl2br(htmlspecialchars($category['description_category'] ?? '')) ?>
                         </p>
 
-                        <a href="/service?slug=<?= rawurlencode($service['slug']) ?>">
+                        <a href="/<?= rawurlencode($category['slug_category']) ?>">
                             Voir les détails &gt;
                         </a>
 
@@ -75,9 +75,10 @@ require_once __DIR__ . '/../layout/header.php';
                 </article>
 
             <?php endforeach; ?>
+
         <?php else : ?>
 
-            <p>Aucune prestation disponible pour le moment.</p>
+            <p>Aucune catégorie disponible pour le moment.</p>
 
         <?php endif; ?>
 
@@ -97,14 +98,10 @@ require_once __DIR__ . '/../layout/header.php';
                 <p>
                     Vous avez un besoin spécifique ou particulier ?
                     Chez JLB MULTISERVICES, je m’adapte à votre situation et à vos contraintes.
-                    Chaque demande est unique, et je m’assure de vous proposer une solution sur mesure,
-                    claire et efficace.
                 </p>
 
                 <p>
                     Pour obtenir votre devis personnalisé, il vous suffit de remplir notre formulaire en ligne.
-                    En quelques minutes, je pourrai étudier votre demande et vous présenter une solution adaptée
-                    à vos besoins.
                 </p>
 
                 <a href="/contact">Contactez JLB MULTISERVICES &gt;</a>

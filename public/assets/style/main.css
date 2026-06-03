@@ -893,3 +893,332 @@ footer {
         margin-top: 15px;
     }
 }
+
+.categoryPage {
+    padding: 60px 20px;
+}
+
+.categoryHeader {
+    max-width: 900px;
+    margin: 0 auto 50px;
+    text-align: center;
+}
+
+.categoryHeader h1 {
+    margin-bottom: 20px;
+}
+
+.categoryHeader p {
+    line-height: 1.7;
+}
+
+.categoryServices {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    gap: 30px;
+}
+
+.categoryServiceCard {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 30px;
+    align-items: center;
+    padding: 25px;
+    border-radius: 14px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.categoryServiceImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.categoryServiceImage img {
+    max-width: 120px;
+    height: auto;
+    display: block;
+}
+
+.categoryServiceContent h2 {
+    margin-bottom: 15px;
+    color: #16593a;
+}
+
+.categoryServiceContent p {
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.categoryServiceActions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.detailsButton,
+.serviceContactButton {
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.detailsButton {
+    background-color: #19779C;
+    color: #ffffff;
+}
+
+.serviceContactButton {
+    background-color: #16593a;
+    color: #ffffff;
+}
+
+.emptyCategory {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.emptyCategory p {
+    margin-bottom: 25px;
+}
+
+@media screen and (max-width: 768px) {
+    .categoryPage {
+        padding: 40px 15px;
+    }
+
+    .categoryServiceCard {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .categoryServiceImage img {
+        max-width: 100px;
+    }
+
+    .categoryServiceContent p {
+        text-align: left;
+    }
+
+    .categoryServiceActions {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .categoryServiceCard {
+        padding: 20px;
+    }
+
+    .categoryServiceContent h2 {
+        font-size: 1.1rem;
+    }
+
+    .categoryServiceContent p {
+        font-size: 0.9rem;
+    }
+
+    .detailsButton,
+    .serviceContactButton {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.serviceItem {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.serviceItem .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.serviceItem .image img {
+    max-width: 120px;
+    height: auto;
+    display: block;
+}
+
+.serviceContent {
+    width: 100%;
+}
+
+.serviceContent h3 {
+    margin-bottom: 15px;
+}
+
+.serviceContent p {
+    line-height: 1.6;
+}
+
+.serviceContent a {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+@media screen and (max-width: 1000px) {
+    .serviceItem {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+    .serviceItem .image {
+        order: 1;
+        width: 100%;
+    }
+
+    .serviceItem .image img {
+        max-width: 100px;
+    }
+
+    .serviceContent {
+        order: 2;
+        width: 100%;
+    }
+
+    .serviceContent p {
+        text-align: left;
+    }
+}
+
+.services {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px 15px;
+}
+
+.serviceItem {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+    min-height: 300px;
+    padding: 40px 55px;
+    background-color: #ffffff;
+    border-right: 2px solid #16593a;
+    border-bottom: 4px solid #16593a;
+    box-sizing: border-box;
+}
+
+.serviceItem .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.serviceItem .image img {
+    max-width: 90px;
+    width: 90px;
+    height: auto;
+    display: block;
+}
+
+.serviceContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.serviceContent h3 {
+    margin-bottom: 20px;
+    color: #16593a;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.serviceContent h3::after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 6px;
+    margin-top: 15px;
+    background-color: #16593a;
+    border-radius: 8px;
+}
+
+.serviceContent p {
+    margin-bottom: 18px;
+    line-height: 1.6;
+}
+
+.serviceContent a {
+    align-self: flex-end;
+    margin-top: auto;
+    color: #19779C;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.serviceContent a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1000px) {
+    .services {
+        grid-template-columns: 1fr;
+    }
+
+    .serviceItem {
+        grid-template-columns: 1fr;
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 35px 30px;
+        text-align: center;
+    }
+
+    .serviceItem .image {
+        order: 1;
+    }
+
+    .serviceItem .image img {
+        max-width: 95px;
+        width: 95px;
+    }
+
+    .serviceContent {
+        order: 2;
+        width: 100%;
+    }
+
+    .serviceContent h3 {
+        text-align: center;
+    }
+
+    .serviceContent p {
+        text-align: left;
+    }
+
+    .serviceContent a {
+        align-self: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .serviceItem {
+        padding: 28px 22px;
+        min-height: auto;
+    }
+
+    .serviceContent h3 {
+        font-size: 1rem;
+    }
+
+    .serviceContent p {
+        font-size: 0.9rem;
+    }
+
+    .serviceItem .image img {
+        max-width: 80px;
+        width: 80px;
+    }
+}
