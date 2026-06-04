@@ -1,5 +1,5 @@
 <?php
-$pageTitle = "Gestion des prestations";
+$pageTitle = "Gestion de la page entreprise";
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ $pageTitle = "Gestion des prestations";
                 alt="Logo JLB MULTISERVICES"
                 class="adminLogoSmall">
 
-            <h1>Gestion des prestations</h1>
+            <h1>Gestion de la page entreprise</h1>
 
             <div class="serviceActions">
 
@@ -37,46 +37,47 @@ $pageTitle = "Gestion des prestations";
                     Retour au dashboard
                 </a>
 
-                <a href="/admin/service/create" class="adminButton addButton">
-                    Ajouter une prestation
+                <a href="/admin/entreprise/create" class="adminButton addButton">
+                    Ajouter un bloc
                 </a>
 
             </div>
 
-            <?php if (empty($services)) : ?>
+            <?php if (empty($companyContents)) : ?>
 
-                <p>Aucune prestation enregistrée.</p>
+                <p>Aucun bloc de contenu enregistré.</p>
 
             <?php else : ?>
 
-                <table class="adminTable">
+                <table class="adminTable companyTable">
 
                     <thead>
                         <tr>
                             <th>Ordre</th>
                             <th>Image</th>
                             <th>Titre</th>
-                            <th>Description</th>
+                            <th>Contenu</th>
+                            <th>Visible</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
 
                     <tbody>
 
-                        <?php foreach ($services as $service) : ?>
+                        <?php foreach ($companyContents as $contentBlock) : ?>
 
                             <tr>
 
-                                <td>
-                                    <?= (int) $service['display_order'] ?>
+                                <td data-label="Ordre">
+                                    <?= (int) $contentBlock['display_order'] ?>
                                 </td>
 
-                                <td>
-                                    <?php if (!empty($service['image'])) : ?>
+                                <td data-label="Image">
+                                    <?php if (!empty($contentBlock['image'])) : ?>
 
                                         <img
-                                            src="/assets/uploads/services/<?= rawurlencode($service['image']) ?>"
-                                            alt="<?= htmlspecialchars($service['title']) ?>"
+                                            src="/assets/media/<?= rawurlencode($contentBlock['image']) ?>"
+                                            alt="<?= htmlspecialchars($contentBlock['title']) ?>"
                                             class="adminServiceImage">
 
                                     <?php else : ?>
@@ -86,31 +87,36 @@ $pageTitle = "Gestion des prestations";
                                     <?php endif; ?>
                                 </td>
 
-                                <td>
-                                    <?= htmlspecialchars($service['title']) ?>
+                                <td data-label="Titre">
+                                    <?= htmlspecialchars($contentBlock['title']) ?>
                                 </td>
 
-                                <td class="messageCell">
-                                    <?= nl2br(htmlspecialchars($service['description_service'])) ?>
+                                <td data-label="Contenu" class="messageCell">
+                                    <?= nl2br(htmlspecialchars($contentBlock['content'])) ?>
                                 </td>
 
-                                <td>
+                                <td data-label="Visible">
+                                    <?= (int) $contentBlock['is_active'] === 1 ? 'Oui' : 'Non' ?>
+                                </td>
+
+                                <td data-label="Actions">
+
                                     <a
                                         class="editBtn"
-                                        href="/admin/service/edit?id=<?= (int) $service['id_service'] ?>">
+                                        href="/admin/entreprise/edit?id=<?= (int) $contentBlock['id_company_content'] ?>">
                                         Modifier
                                     </a>
 
                                     <form
                                         method="POST"
-                                        action="/admin/service/delete"
+                                        action="/admin/entreprise/delete"
                                         class="deleteForm"
-                                        onsubmit="return confirm('Supprimer cette prestation ?')">
+                                        onsubmit="return confirm('Supprimer ce bloc de contenu ?')">
 
                                         <input
                                             type="hidden"
                                             name="id"
-                                            value="<?= (int) $service['id_service'] ?>">
+                                            value="<?= (int) $contentBlock['id_company_content'] ?>">
 
                                         <input
                                             type="hidden"
@@ -122,6 +128,7 @@ $pageTitle = "Gestion des prestations";
                                         </button>
 
                                     </form>
+
                                 </td>
 
                             </tr>

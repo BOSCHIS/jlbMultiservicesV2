@@ -165,7 +165,15 @@ header ul li a.btnContact:hover {
 
     header ul li a.btnContact {
         margin-right: 0;
-        padding-top: 10px;
+        margin-top: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        height: 55px;
+        padding: 0 35px;
+        line-height: 1;
     }
 }
 
@@ -500,6 +508,15 @@ header ul li a.btnContact:hover {
     }
 }
 
+.zoneIntervention .map.leaflet-container img,
+.zoneIntervention .map.leaflet-container .leaflet-tile {
+    max-width: none !important;
+    max-height: none !important;
+    border: 0 !important;
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
 /* début footer */
 footer {
     display: flex;
@@ -518,6 +535,7 @@ footer {
         color: #187296;
         font-weight: 600;
         white-space: nowrap;
+        text-decoration: underline;
     }
 
     ul {
@@ -1221,4 +1239,293 @@ footer {
         max-width: 80px;
         width: 80px;
     }
+}
+
+.entreprisePage {
+    margin-bottom: 50px;
+}
+
+.entrepriseReverse {
+    flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 1000px) {
+    .entrepriseReverse {
+        flex-direction: column;
+    }
+}
+
+.legalPage {
+    padding: 60px 20px;
+}
+
+.legalContent {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 45px;
+    background-color: #ffffff;
+    border-right: 2px solid #16593a;
+    border-bottom: 4px solid #16593a;
+    box-sizing: border-box;
+}
+
+.legalContent h1,
+.legalContent h2 {
+    color: #16593a;
+    text-transform: uppercase;
+}
+
+.legalContent h1 {
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.legalContent h2 {
+    margin-top: 32px;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.legalContent p {
+    line-height: 1.7;
+    margin-bottom: 15px;
+}
+
+.legalContent ul {
+    margin: 10px 0 20px 25px;
+}
+
+.legalContent li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+}
+
+.legalLink {
+    display: inline-block;
+    margin-top: 12px;
+    color: #19779C;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.legalLink:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+    .legalPage {
+        padding: 35px 15px;
+    }
+
+    .legalContent {
+        padding: 30px 22px;
+    }
+
+    .legalContent h1 {
+        font-size: 1.4rem;
+    }
+
+    .legalContent h2 {
+        font-size: 1rem;
+    }
+
+    .legalContent p,
+    .legalContent li {
+        font-size: 0.92rem;
+    }
+}
+
+.categoryServices {
+    width: 100%;
+}
+
+.categoryServices .entreprise {
+    width: 100%;
+}
+
+.categoryServices .entrepriseImage img {
+    max-width: 360px;
+    width: 100%;
+    height: auto;
+}
+
+.serviceQuoteLink {
+    display: inline-block;
+    margin-top: 20px;
+    color: #19779C;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.serviceQuoteLink:hover {
+    text-decoration: underline;
+}
+
+.categoryServices .entrepriseText {
+    display: flex;
+    flex-direction: column;
+}
+
+.categoryServices .serviceQuoteLink {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+/* Cards prestations dynamiques */
+.categoryPage {
+    overflow-x: hidden;
+}
+
+.categoryPage .categoryServices {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.categoryPage .categoryServices .entreprise,
+.categoryPage .categoryServices .entrepriseReverse {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Image plus grande + moins de marge */
+.categoryPage .categoryServices .entrepriseImage {
+    flex: 0 0 40%;
+    margin: 0;
+    padding: 0;
+}
+
+.categoryPage .categoryServices .entrepriseImage img {
+    max-width: 540px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Texte */
+.categoryPage .categoryServices .entrepriseText {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+/* Lien devis à droite */
+.categoryPage .serviceQuoteLink {
+    display: inline-block;
+    margin-top: auto;
+    color: #19779C;
+    font-weight: 700;
+    text-decoration: none;
+    align-self: flex-end;
+}
+
+.categoryPage .serviceQuoteLink:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1000px) {
+
+    .categoryPage .categoryServices .entreprise,
+    .categoryPage .categoryServices .entrepriseReverse {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        padding: 35px 25px;
+        box-sizing: border-box;
+    }
+
+    .categoryPage .categoryServices .entrepriseImage {
+        flex: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .categoryPage .categoryServices .entrepriseImage img {
+        max-width: 380px;
+        width: 100%;
+        height: auto;
+    }
+
+    .categoryPage .categoryServices .entrepriseText {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .categoryPage .serviceQuoteLink {
+        align-self: flex-end;
+        margin-top: 20px;
+    }
+}
+
+@media screen and (max-width: 535px) {
+    .categoryPage {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .categoryPage .categoryServices {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
+
+    .categoryPage .categoryServices .entreprise,
+    .categoryPage .categoryServices .entrepriseReverse {
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 16px;
+        margin-left: 0;
+        margin-right: 0;
+        box-sizing: border-box;
+    }
+
+    .categoryPage .categoryServices .entrepriseImage img {
+        max-width: 260px;
+    }
+
+    .categoryPage .categoryServices .entrepriseText {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .categoryPage .categoryServices .entrepriseText h2 {
+        font-size: 1.4rem;
+        word-break: break-word;
+    }
+
+    .categoryPage .categoryServices .entrepriseText p {
+        font-size: 0.9rem;
+        word-break: break-word;
+    }
+
+    .categoryPage .serviceQuoteLink {
+        align-self: center;
+        margin-top: 20px;
+        font-size: 1.2rem;
+    }
+}
+
+.categoryPage .categoryServices {
+    width: 100%;
+    max-width: 1880px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.categoryPage .categoryServices .entreprise,
+.categoryPage .categoryServices .entrepriseReverse {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
 }

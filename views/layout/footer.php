@@ -2,8 +2,8 @@
     <div class="footerLeft">
         <img src="/assets/media/JLB_Multiservices_logo.webp" alt="Logo JLB Multiservices">
         <ul>
-            <li><a href="" class="legalLink">Mentions légales</a></li>
-            <li><a href="" class="cgu">Conditions générales d'utilisation</a></li>
+            <li><a href="/mentions-legales" class="legalLink">Mentions légales</a></li>
+            <li><a href="/conditions-generales-utilisation" class="cgu">Conditions générales d'utilisation</a></li>
         </ul>
     </div>
 

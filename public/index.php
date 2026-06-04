@@ -64,5 +64,15 @@ $router->get('/admin/category/edit', 'AdminCategoryController@edit');
 $router->post('/admin/category/edit', 'AdminCategoryController@update');
 $router->post('/admin/category/delete', 'AdminCategoryController@delete');
 
+$router->get('/admin/entreprise', 'AdminCompanyController@index');
+$router->get('/admin/entreprise/create', 'AdminCompanyController@create');
+$router->post('/admin/entreprise/create', 'AdminCompanyController@store');
+$router->get('/admin/entreprise/edit', 'AdminCompanyController@edit');
+$router->post('/admin/entreprise/edit', 'AdminCompanyController@update');
+$router->post('/admin/entreprise/delete', 'AdminCompanyController@delete');
+
+$router->get('/mentions-legales', 'LegalController@mentions');
+$router->get('/conditions-generales-utilisation', 'LegalController@terms');
+$router->get('/politique-confidentialite', 'LegalController@privacy');
 
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

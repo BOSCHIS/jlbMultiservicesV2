@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../Core/Database.php';
 require_once __DIR__ . '/../Repository/CategoryRepository.php';
+require_once __DIR__ . '/../Repository/CompanyRepository.php';
 
 class HomeController
 {
@@ -18,6 +19,12 @@ class HomeController
 
     public function entreprise(): void
     {
+        $conn = Database::connect();
+
+        $companyRepository = new CompanyRepository($conn);
+
+        $companyContents = $companyRepository->findActive();
+
         require_once __DIR__ . '/../../views/home/entreprise.php';
     }
 }

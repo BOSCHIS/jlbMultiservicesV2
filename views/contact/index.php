@@ -205,7 +205,7 @@ Cordialement."></textarea>
 
                         <label for="cgu">
                             J'ai pris connaissance de la
-                            <a href="/confidentialite" target="_blank">Politique de confidentialité</a>
+                            <a href="/politique-confidentialite" target="_blank">Politique de confidentialité</a>
                             et j'accepte le traitement de mes données personnelles
                         </label>
 

@@ -1,7 +1,5 @@
 <?php
-$pageTitle = "Ajouter une prestation";
-
-$categories = $categories ?? [];
+$pageTitle = "Ajouter un bloc entreprise";
 ?>
 
 <!DOCTYPE html>
@@ -11,14 +9,12 @@ $categories = $categories ?? [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?></title>
-
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="MyWebSite" />
     <link rel="manifest" href="/site.webmanifest" />
-
     <link rel="stylesheet" href="/assets/style/admin.css">
 </head>
 
@@ -33,73 +29,32 @@ $categories = $categories ?? [];
                 alt="Logo JLB MULTISERVICES"
                 class="adminLogo">
 
-            <h1>Ajouter une prestation</h1>
+            <h1>Ajouter un bloc entreprise</h1>
 
             <form
                 method="POST"
-                action="/admin/service/create"
+                action="/admin/entreprise/create"
                 class="adminForm"
                 enctype="multipart/form-data">
 
                 <label>
-                    Catégorie
-
-                    <select name="category_id" required>
-
-                        <option value="">
-                            Choisir une catégorie
-                        </option>
-
-                        <?php foreach ($categories as $category) : ?>
-
-                            <option value="<?= (int) $category['id_category'] ?>">
-                                <?= htmlspecialchars($category['name_category']) ?>
-                            </option>
-
-                        <?php endforeach; ?>
-
-                    </select>
-
-                </label>
-
-                <label>
-                    Slug URL
-
-                    <input
-                        type="text"
-                        name="slug"
-                        placeholder="exemple-nettoyage-vitres"
-                        required>
-
-                </label>
-
-                <label>
-                    Titre de la prestation
+                    Titre
 
                     <input
                         type="text"
                         name="title"
+                        placeholder="Exemple : Une entreprise locale"
                         required>
-
                 </label>
 
                 <label>
-                    Description
+                    Contenu
 
                     <textarea
-                        name="description"
-                        rows="8"
+                        name="content"
+                        rows="12"
+                        placeholder="Rédigez le contenu de ce bloc."
                         required></textarea>
-
-                </label>
-
-                <label>
-                    Image de la prestation
-
-                    <input
-                        type="file"
-                        name="image"
-                        accept="image/png, image/jpeg, image/webp">
                 </label>
 
                 <label>
@@ -111,15 +66,33 @@ $categories = $categories ?? [];
                         min="1"
                         value="1"
                         required>
+                </label>
 
+                <label class="checkboxAdmin">
+                    <input
+                        type="checkbox"
+                        name="is_active"
+                        value="1"
+                        checked>
+
+                    Afficher ce bloc sur la page entreprise
+                </label>
+
+                <label>
+                    Image du bloc
+
+                    <input
+                        type="file"
+                        name="image"
+                        accept="image/png, image/jpeg, image/webp">
                 </label>
 
                 <button type="submit" class="adminButton">
                     Ajouter
                 </button>
 
-                <a href="/admin/services" class="backDashboard">
-                    Retour aux prestations
+                <a href="/admin/entreprise" class="backDashboard">
+                    Retour à la page entreprise
                 </a>
 
             </form>

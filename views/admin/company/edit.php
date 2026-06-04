@@ -1,8 +1,8 @@
 <?php
 
-$pageTitle = "Modifier une catégorie";
+$pageTitle = "Modifier un bloc entreprise";
 
-$category = $category ?? null;
+$companyContent = $companyContent ?? null;
 
 ?>
 
@@ -33,51 +33,41 @@ $category = $category ?? null;
                 alt="Logo JLB MULTISERVICES"
                 class="adminLogo">
 
-            <h1>Modifier une catégorie</h1>
+            <h1>Modifier un bloc entreprise</h1>
 
-            <?php if (!$category) : ?>
+            <?php if (!$companyContent) : ?>
 
-                <p>Catégorie introuvable.</p>
+                <p>Bloc entreprise introuvable.</p>
 
-                <a href="/admin/categories" class="backDashboard">
-                    Retour aux catégories
+                <a href="/admin/entreprise" class="backDashboard">
+                    Retour à la page entreprise
                 </a>
 
             <?php else : ?>
 
                 <form
                     method="POST"
-                    action="/admin/category/edit?id=<?= (int) $category['id_category'] ?>"
+                    action="/admin/entreprise/edit?id=<?= (int) $companyContent['id_company_content'] ?>"
                     class="adminForm"
                     enctype="multipart/form-data">
 
                     <label>
-                        Nom de la catégorie
+                        Titre
 
                         <input
                             type="text"
-                            name="name"
-                            value="<?= htmlspecialchars($category['name_category']) ?>"
+                            name="title"
+                            value="<?= htmlspecialchars($companyContent['title']) ?>"
                             required>
                     </label>
 
                     <label>
-                        Slug URL
-
-                        <input
-                            type="text"
-                            name="slug"
-                            value="<?= htmlspecialchars($category['slug_category']) ?>"
-                            required>
-                    </label>
-
-                    <label>
-                        Description
+                        Contenu
 
                         <textarea
-                            name="description"
-                            rows="8"
-                            required><?= htmlspecialchars($category['description_category'] ?? '') ?></textarea>
+                            name="content"
+                            rows="12"
+                            required><?= htmlspecialchars($companyContent['content']) ?></textarea>
                     </label>
 
                     <label>
@@ -87,7 +77,7 @@ $category = $category ?? null;
                             type="number"
                             name="display_order"
                             min="1"
-                            value="<?= (int) $category['display_order'] ?>"
+                            value="<?= (int) $companyContent['display_order'] ?>"
                             required>
                     </label>
 
@@ -96,35 +86,32 @@ $category = $category ?? null;
                             type="checkbox"
                             name="is_active"
                             value="1"
-                            <?= (int) $category['is_active'] === 1 ? 'checked' : '' ?>>
+                            <?= (int) $companyContent['is_active'] === 1 ? 'checked' : '' ?>>
 
-                        Afficher cette catégorie sur l’accueil
+                        Afficher ce bloc sur la page entreprise
                     </label>
 
                     <div class="currentImageBox">
 
                         <p>Image actuelle :</p>
 
-                        <?php if (!empty($category['image_category'])) : ?>
+                        <?php if (!empty($companyContent['image'])) : ?>
 
                             <img
-                                src="/assets/media/<?= rawurlencode($category['image_category']) ?>"
-                                alt="<?= htmlspecialchars($category['name_category']) ?>"
+                                src="/assets/media/<?= rawurlencode($companyContent['image']) ?>"
+                                alt="<?= htmlspecialchars($companyContent['title']) ?>"
                                 class="adminServiceImage">
 
                         <?php else : ?>
 
-                            <img
-                                src="/assets/media/default_service.webp"
-                                alt="Image par défaut d’une catégorie JLB MULTISERVICES"
-                                class="adminServiceImage">
+                            <span>Aucune image</span>
 
                         <?php endif; ?>
 
                     </div>
 
                     <label>
-                        Nouvelle image de la catégorie
+                        Nouvelle image
 
                         <input
                             type="file"
@@ -136,8 +123,8 @@ $category = $category ?? null;
                         Enregistrer les modifications
                     </button>
 
-                    <a href="/admin/categories" class="backDashboard">
-                        Retour aux catégories
+                    <a href="/admin/entreprise" class="backDashboard">
+                        Retour à la page entreprise
                     </a>
 
                 </form>

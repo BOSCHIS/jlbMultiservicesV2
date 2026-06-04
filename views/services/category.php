@@ -46,11 +46,27 @@ require_once __DIR__ . '/../layout/header.php';
 
         <?php else : ?>
 
-            <?php foreach ($services as $service) : ?>
+            <?php foreach ($services as $index => $service) : ?>
 
-                <article class="categoryServiceCard">
+                <article class="entreprise entreprisePage <?= $index % 2 === 1 ? 'entrepriseReverse' : '' ?>">
 
-                    <div class="categoryServiceImage">
+                    <div class="entrepriseText">
+
+                        <h2><?= htmlspecialchars($service['title']) ?></h2>
+
+                        <p>
+                            <?= nl2br(htmlspecialchars($service['description_service'])) ?>
+                        </p>
+
+                        <a
+                            href="/contact?service=<?= rawurlencode($service['slug']) ?>"
+                            class="serviceQuoteLink">
+                            Demander un devis &gt;
+                        </a>
+
+                    </div>
+
+                    <div class="entrepriseImage">
 
                         <?php if (!empty($service['image'])) : ?>
 
@@ -61,36 +77,10 @@ require_once __DIR__ . '/../layout/header.php';
                         <?php else : ?>
 
                             <img
-                                src="/assets/media/default_service.png"
+                                src="/assets/media/default_service.webp"
                                 alt="Image par défaut d’une prestation JLB MULTISERVICES">
 
                         <?php endif; ?>
-
-                    </div>
-
-                    <div class="categoryServiceContent">
-
-                        <h2><?= htmlspecialchars($service['title']) ?></h2>
-
-                        <p>
-                            <?= nl2br(htmlspecialchars($service['description_service'])) ?>
-                        </p>
-
-                        <div class="categoryServiceActions">
-
-                            <a
-                                href="/service?slug=<?= rawurlencode($service['slug']) ?>"
-                                class="detailsButton">
-                                Voir les détails
-                            </a>
-
-                            <a
-                                href="/contact?service=<?= rawurlencode($service['slug']) ?>"
-                                class="serviceContactButton">
-                                Demander un devis
-                            </a>
-
-                        </div>
 
                     </div>
 
@@ -102,6 +92,7 @@ require_once __DIR__ . '/../layout/header.php';
 
     </section>
 
-</main>
 
+</main>
+<?php require_once __DIR__ . '/../components/map.php'; ?>
 <?php require_once __DIR__ . '/../layout/footer.php'; ?>

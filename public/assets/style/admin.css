@@ -548,3 +548,66 @@ body {
     color: #0f5132;
     font-weight: 600;
 }
+
+.companyTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.companyTable th:nth-child(1),
+.companyTable td:nth-child(1) {
+    width: 65px;
+    text-align: center;
+}
+
+.companyTable th:nth-child(2),
+.companyTable td:nth-child(2) {
+    width: 110px;
+    text-align: center;
+}
+
+.companyTable th:nth-child(3),
+.companyTable td:nth-child(3) {
+    width: 180px;
+}
+
+.companyTable th:nth-child(4),
+.companyTable td:nth-child(4) {
+    width: auto;
+}
+
+.companyTable th:nth-child(5),
+.companyTable td:nth-child(5) {
+    width: 80px;
+    text-align: center;
+}
+
+.companyTable th:nth-child(6),
+.companyTable td:nth-child(6) {
+    width: 170px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.companyTable .messageCell {
+    max-width: none;
+    white-space: normal;
+    line-height: 1.5;
+}
+
+.companyTable td[data-label="Actions"] {
+    vertical-align: middle;
+}
+
+.companyTable td[data-label="Actions"] .editBtn,
+.companyTable td[data-label="Actions"] .deleteForm {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 4px 6px;
+}
+
+.companyTable td[data-label="Actions"] .deleteBtn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}

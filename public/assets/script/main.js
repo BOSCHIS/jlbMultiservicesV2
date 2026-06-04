@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
             fetch('https://data.laregion.fr/api/explore/v2.1/catalog/datasets/departements-d-occitanie/records?limit=20&refine=nom_officiel_departement%3A%22Lot%22')
                 .then(response => response.json())
                 .then(dataTrans => {
-                    // console.log(dataTrans.results[0].geo_shape.geometry.coordinates);
 
                     const coords = dataTrans.results[0].geo_shape.geometry.coordinates[0];
                     const latLngs = coords.map(c => [c[1], c[0]]);
@@ -82,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         contactApi();
     }
-
     const form = document.getElementById("contactForm");
 
     if (form) {
