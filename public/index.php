@@ -75,4 +75,11 @@ $router->get('/mentions-legales', 'LegalController@mentions');
 $router->get('/conditions-generales-utilisation', 'LegalController@terms');
 $router->get('/politique-confidentialite', 'LegalController@privacy');
 
+$router->get('/admin/realisations', 'AdminRealisationController@index');
+$router->get('/admin/realisations/create', 'AdminRealisationController@create');
+$router->post('/admin/realisations/create', 'AdminRealisationController@store');
+$router->get('/admin/realisations/edit', 'AdminRealisationController@edit');
+$router->post('/admin/realisations/edit', 'AdminRealisationController@update');
+$router->post('/admin/realisations/delete', 'AdminRealisationController@delete');
+
 $router->dispatch($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

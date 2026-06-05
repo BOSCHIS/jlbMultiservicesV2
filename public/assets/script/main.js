@@ -139,3 +139,88 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+const beforeAfterSliders = document.querySelectorAll(".beforeAfterSlider");
+
+beforeAfterSliders.forEach((slider) => {
+    const range = slider.querySelector(".beforeAfterRange");
+    const beforeWrapper = slider.querySelector(".beforeImageWrapper");
+    const sliderLine = slider.querySelector(".sliderLine");
+
+    if (!range || !beforeWrapper || !sliderLine) {
+        return;
+    }
+
+    const updateBeforeAfter = () => {
+        const value = range.value;
+
+        beforeWrapper.style.width = `${value}%`;
+        sliderLine.style.left = `${value}%`;
+    };
+
+    range.addEventListener("input", updateBeforeAfter);
+
+    updateBeforeAfter();
+});
+
+const beforeAfterCarousel = document.querySelector(".beforeAfterCarousel");
+const beforeAfterPrev = document.querySelector(".beforeAfterPrev");
+const beforeAfterNext = document.querySelector(".beforeAfterNext");
+
+if (beforeAfterCarousel && beforeAfterPrev && beforeAfterNext) {
+    const getScrollAmount = () => {
+        const firstItem = beforeAfterCarousel.querySelector(".beforeAfterItem");
+
+        if (!firstItem) {
+            return beforeAfterCarousel.clientWidth;
+        }
+
+        const carouselStyles = window.getComputedStyle(beforeAfterCarousel);
+        const gap = parseInt(carouselStyles.columnGap || carouselStyles.gap || 0, 10);
+
+        return firstItem.offsetWidth + gap;
+    };
+
+    const goToStart = () => {
+        beforeAfterCarousel.scrollTo({
+            left: 0,
+            behavior: "smooth"
+        });
+    };
+
+    const goToEnd = () => {
+        beforeAfterCarousel.scrollTo({
+            left: beforeAfterCarousel.scrollWidth,
+            behavior: "smooth"
+        });
+    };
+
+    beforeAfterPrev.addEventListener("click", () => {
+        const scrollAmount = getScrollAmount();
+
+        if (beforeAfterCarousel.scrollLeft <= 5) {
+            goToEnd();
+            return;
+        }
+
+        beforeAfterCarousel.scrollBy({
+            left: -scrollAmount,
+            behavior: "smooth"
+        });
+    });
+
+    beforeAfterNext.addEventListener("click", () => {
+        const scrollAmount = getScrollAmount();
+        const maxScrollLeft = beforeAfterCarousel.scrollWidth - beforeAfterCarousel.clientWidth;
+
+        if (beforeAfterCarousel.scrollLeft >= maxScrollLeft - 5) {
+            goToStart();
+            return;
+        }
+
+        beforeAfterCarousel.scrollBy({
+            left: scrollAmount,
+            behavior: "smooth"
+        });
+    });
+}

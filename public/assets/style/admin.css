@@ -611,3 +611,67 @@ body {
     cursor: pointer;
     font-family: inherit;
 }
+
+.realisationTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.realisationTable th:nth-child(1),
+.realisationTable td:nth-child(1) {
+    width: 80px;
+    text-align: center;
+}
+
+.realisationTable th:nth-child(2),
+.realisationTable td:nth-child(2),
+.realisationTable th:nth-child(3),
+.realisationTable td:nth-child(3) {
+    width: 190px;
+    text-align: center;
+}
+
+.realisationTable th:nth-child(4),
+.realisationTable td:nth-child(4) {
+    width: auto;
+}
+
+.realisationTable th:nth-child(5),
+.realisationTable td:nth-child(5) {
+    width: 100px;
+    text-align: center;
+}
+
+.realisationTable th:nth-child(6),
+.realisationTable td:nth-child(6) {
+    width: 260px;
+    text-align: center;
+}
+
+.realisationTable td[data-label="Actions"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    min-height: 90px;
+}
+
+.realisationTable td[data-label="Actions"] .editBtn,
+.realisationTable td[data-label="Actions"] .deleteBtn {
+    min-width: 95px;
+    height: 42px;
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1;
+}
+
+.realisationTable td[data-label="Actions"] .deleteForm {
+    margin: 0;
+    display: inline-flex;
+}

@@ -50,6 +50,10 @@ $pageTitle = "Dashboard administrateur";
                 Prestations
             </a>
 
+            <a href="/admin/realisations" class="adminButton">
+                Gérer les réalisations avant/après
+            </a>
+
             <a href="/admin/entreprise" class="adminButton">
                 Gérer la page entreprise
             </a>

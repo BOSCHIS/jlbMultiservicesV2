@@ -471,6 +471,7 @@ header ul li a.btnContact:hover {
 
     .serviceSurMesureContent a {
         text-align: right;
+        /* margin-top: 25px; */
     }
 }
 
@@ -725,43 +726,7 @@ footer {
     }
 }
 
-.serviceCard {
-    display: flex;
-    gap: 30px;
-    align-items: center;
-    margin-bottom: 50px;
-}
-
-.serviceCardContent {
-    flex: 1;
-}
-
-.serviceCardContent h3 {
-    margin-bottom: 15px;
-}
-
-.serviceCardContent p {
-    margin-bottom: 15px;
-    line-height: 1.6;
-}
-
-.serviceCardContent a {
-    font-weight: 600;
-    text-decoration: none;
-}
-
-@media screen and (max-width: 768px) {
-    .serviceCard {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-}
-
-.services>.serviceItem:last-child:nth-child(odd) {
-    grid-column: 1 / -1;
-    width: calc(50% - 7.5px);
-    justify-self: center;
-}
+/* Début grille services accueil */
 
 .services {
     display: grid;
@@ -774,6 +739,7 @@ footer {
     width: 100%;
     min-width: 0;
     box-sizing: border-box;
+
     display: grid;
     grid-template-columns: 120px 1fr;
     align-items: center;
@@ -800,19 +766,27 @@ footer {
     overflow-wrap: anywhere;
 }
 
+/* Si nombre impair sur desktop : dernière card centrée */
+.services>.serviceItem:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc(50% - 7.5px);
+    justify-self: center;
+}
+
+/* Lien de la card service sur mesure */
+.serviceSurMesure a {
+    display: inline-block;
+    margin-top: 25px;
+}
+
+/* Entre 769px et 1280px : une seule colonne */
 @media screen and (max-width: 1280px) {
     .services {
         grid-template-columns: 1fr;
         justify-items: center;
     }
 
-    .services>.serviceItem {
-        width: 100%;
-        max-width: 850px;
-        grid-column: auto;
-        justify-self: center;
-    }
-
+    .services>.serviceItem,
     .services>.serviceItem:last-child:nth-child(odd) {
         grid-column: auto;
         width: 100%;
@@ -821,99 +795,86 @@ footer {
     }
 }
 
+/* Tablette / mobile : image + texte plus compact */
 @media screen and (max-width: 768px) {
     .services {
         grid-template-columns: 1fr;
     }
 
-    .services>.serviceItem {
-        width: 100%;
-        grid-template-columns: 90px 1fr;
-    }
-
-
-
+    .services>.serviceItem,
     .services>.serviceItem:last-child:nth-child(odd) {
-        grid-column: auto;
         width: 100%;
+        max-width: 100%;
+        grid-template-columns: 90px 1fr;
+        padding: 25px 18px;
+        box-sizing: border-box;
     }
-}
 
-@media screen and (max-width: 515px) {
-    .services>.serviceItem h3 {
-        font-size: 1.2rem;
-        line-height: 1.3;
+    .services>.serviceItem .image img {
+        max-width: 75px;
     }
 
     .services>.serviceItem p {
-        font-size: 1.1rem;
         line-height: 1.5;
     }
 
-    .services>.serviceItem a {
-        font-size: 1.1rem;
-        display: inline-block;
-        margin-top: 15px;
-        position: static;
+    .serviceSurMesure a {
+        margin-top: 25px;
     }
+}
 
-    .serviceSurMesureContent {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-    }
+/* Petit mobile : passage en colonne pour éviter le texte écrasé */
+@media screen and (max-width: 535px) {
 
-    .serviceSurMesureContent a {
-        align-self: center;
-        margin-top: 20px;
-    }
-
-    .services>.serviceItem {
+    .services>.serviceItem,
+    .services>.serviceItem:last-child:nth-child(odd) {
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
         width: 100%;
-        max-width: 850px;
+        max-width: 100%;
+        padding: 28px 18px;
     }
 
     .services>.serviceItem .image {
-        order: 1;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
 
     .services>.serviceItem .image img {
         max-width: 120px;
-        height: auto;
-        display: block;
-        margin: 0 auto;
-    }
-
-    .services>.serviceItem>div:not(.image) {
-        order: 2;
-        width: 100%;
     }
 
     .services>.serviceItem h3 {
-        text-align: center;
-        margin-bottom: 15px;
+        font-size: 1.15rem;
+        line-height: 1.35;
     }
 
     .services>.serviceItem p {
-        text-align: left;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        overflow-wrap: break-word;
+        word-break: normal;
     }
 
-    .services>.serviceItem a {
+    .serviceSurMesure a {
         display: inline-block;
-        margin-top: 15px;
+        margin-top: 25px;
+        font-size: 1rem;
     }
 }
 
-.categoryPage {
-    padding: 60px 20px;
+/* Fin grille services accueil */
+
+
+
+@media screen and (max-width: 1280px) {
+
+    .services>.serviceItem,
+    .services>.serviceItem:last-child:nth-child(odd) {
+        width: 100%;
+        max-width: 850px;
+    }
 }
 
 .categoryHeader {
@@ -1006,7 +967,7 @@ footer {
 
 @media screen and (max-width: 768px) {
     .categoryPage {
-        padding: 40px 15px;
+        padding: 10px 15px;
     }
 
     .categoryServiceCard {
@@ -1425,6 +1386,10 @@ footer {
     text-decoration: underline;
 }
 
+.categoryPage .categoryServices .entreprisePage {
+    margin-bottom: 15px;
+}
+
 @media screen and (max-width: 1000px) {
 
     .categoryPage .categoryServices .entreprise,
@@ -1495,12 +1460,12 @@ footer {
     }
 
     .categoryPage .categoryServices .entrepriseText h2 {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         word-break: break-word;
     }
 
     .categoryPage .categoryServices .entrepriseText p {
-        font-size: 0.9rem;
+        font-size: 1rem;
         word-break: break-word;
     }
 
@@ -1528,4 +1493,476 @@ footer {
     margin-left: auto;
     margin-right: auto;
     box-sizing: border-box;
+}
+
+
+.beforeAfterSection {
+    padding: 60px 20px;
+    background-color: #f2f2f2;
+    overflow-x: hidden;
+}
+
+.beforeAfterHeader {
+    max-width: 900px;
+    margin: 0 auto 40px auto;
+    text-align: center;
+}
+
+.beforeAfterHeader h2 {
+    color: #16593a;
+    text-transform: uppercase;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
+
+.beforeAfterHeader h2::after {
+    content: "";
+    display: block;
+    width: 220px;
+    height: 6px;
+    margin: 18px auto 0 auto;
+    background-color: #16593a;
+    border-radius: 8px;
+}
+
+.beforeAfterHeader p {
+    line-height: 1.6;
+}
+
+
+.beforeAfterCarouselWrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 50px minmax(0, 1fr) 50px;
+    align-items: center;
+    gap: 18px;
+    box-sizing: border-box;
+}
+
+
+.beforeAfterCarousel {
+    min-width: 0;
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    padding: 0 0 18px 0;
+    box-sizing: border-box;
+}
+
+.beforeAfterCarousel {
+    scrollbar-width: none;
+}
+
+.beforeAfterCarousel::-webkit-scrollbar {
+    display: none;
+}
+
+
+.beforeAfterItem {
+    flex: 0 0 calc((100% - 30px) / 2);
+    max-width: calc((100% - 30px) / 2);
+    scroll-snap-align: start;
+    background-color: #ffffff;
+    border-right: 2px solid #16593a;
+    border-bottom: 4px solid #16593a;
+    box-sizing: border-box;
+    padding: 24px;
+}
+
+.beforeAfterItem h3 {
+    color: #16593a;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+    font-weight: 800;
+}
+
+.beforeAfterSlider {
+    position: relative;
+    width: 100%;
+    height: 550px;
+    overflow: hidden;
+    background-color: #dddddd;
+}
+
+.beforeAfterSlider img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+
+.afterImage {
+    z-index: 1;
+}
+
+.beforeImageWrapper {
+    position: absolute;
+    inset: 0;
+    width: 50%;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.beforeImage {
+    z-index: 2;
+}
+
+
+.sliderLine {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    background-color: #ffffff;
+    transform: translateX(-50%);
+    z-index: 4;
+}
+
+.sliderLine::after {
+    content: "↔";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 42px;
+    height: 42px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: #16593a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.beforeLabel,
+.afterLabel {
+    position: absolute;
+    bottom: 12px;
+    z-index: 5;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.beforeLabel {
+    left: 12px;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.afterLabel {
+    right: 12px;
+    background-color: #16593a;
+}
+
+
+.beforeAfterRange {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    z-index: 10;
+}
+
+
+.beforeAfterNav {
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: #16593a;
+    color: #ffffff;
+    font-size: 2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.beforeAfterNav:hover {
+    background-color: #19779C;
+}
+
+.beforeAfterPrev {
+    justify-self: center;
+}
+
+.beforeAfterNext {
+    justify-self: center;
+}
+
+
+@media screen and (max-width: 1000px) {
+    .beforeAfterCarouselWrapper {
+        grid-template-columns: 44px minmax(0, 1fr) 44px;
+        gap: 10px;
+    }
+
+    .beforeAfterItem {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .beforeAfterSlider {
+        height: 330px;
+    }
+
+    .beforeAfterNav {
+        width: 38px;
+        height: 38px;
+        font-size: 1.7rem;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+    .beforeAfterSection {
+        padding: 40px 8px;
+    }
+
+    .beforeAfterHeader {
+        margin-bottom: 28px;
+    }
+
+    .beforeAfterHeader h2 {
+        font-size: 1.25rem;
+        line-height: 1.3;
+    }
+
+    .beforeAfterHeader p {
+        font-size: 0.95rem;
+    }
+
+    .beforeAfterCarouselWrapper {
+        display: block;
+        position: relative;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .beforeAfterCarousel {
+        width: 100%;
+        gap: 18px;
+        padding-bottom: 0;
+    }
+
+    .beforeAfterItem {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .beforeAfterItem h3 {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+    }
+
+    .beforeAfterSlider {
+        height: 300px;
+    }
+
+    .beforeAfterNav {
+        position: absolute;
+        top: 58%;
+        transform: translateY(-50%);
+        z-index: 20;
+
+        display: flex;
+        width: 34px;
+        height: 34px;
+        font-size: 1.4rem;
+        background-color: #16593a;
+    }
+
+    .beforeAfterPrev {
+        left: 6px;
+    }
+
+    .beforeAfterNext {
+        right: 6px;
+    }
+
+    .sliderLine::after {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+    }
+}
+
+
+@media screen and (max-width: 420px) {
+    .beforeAfterSection {
+        padding: 35px 6px;
+    }
+
+    .beforeAfterItem {
+        padding: 8px;
+    }
+
+    .beforeAfterSlider {
+        height: 270px;
+    }
+
+    .beforeAfterNav {
+        width: 30px;
+        height: 30px;
+        font-size: 1.25rem;
+    }
+
+    .beforeAfterPrev {
+        left: 4px;
+    }
+
+    .beforeAfterNext {
+        right: 4px;
+    }
+
+    .beforeLabel,
+    .afterLabel {
+        font-size: 0.72rem;
+        padding: 5px 7px;
+    }
+}
+
+/* Correction spécifique card service sur mesure */
+
+.serviceSurMesure a {
+    display: inline-block;
+    margin-top: 28px;
+    font-size: 1.2rem;
+}
+
+/* Desktop : card impaire centrée */
+.services>.serviceSurMesure:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    width: calc(50% - 7.5px);
+    justify-self: center;
+}
+
+@media screen and (max-width: 1350px) {
+    .serviceSurMesure a {
+        font-size: 1.2rem;
+    }
+}
+
+/* De 535px à 1280px : card centrée, image à gauche, texte à droite */
+@media screen and (max-width: 1280px) {
+
+    .services>.serviceSurMesure,
+    .services>.serviceSurMesure:last-child:nth-child(odd) {
+        grid-column: 1 / -1;
+        justify-self: center;
+
+        width: 100%;
+        max-width: 850px;
+        box-sizing: border-box;
+
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+    }
+
+    .serviceSurMesure .image {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .serviceSurMesure>div:last-child {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+    }
+
+    .serviceSurMesure a {
+        display: inline-block;
+        margin-top: 28px;
+        font-size: 1.1rem;
+    }
+}
+
+/* Sous 768px : image toujours à gauche, texte à droite mais plus compact */
+@media screen and (max-width: 768px) {
+
+    .services>.serviceSurMesure,
+    .services>.serviceSurMesure:last-child:nth-child(odd) {
+        grid-template-columns: 90px 1fr;
+        width: 100%;
+        max-width: 100%;
+        padding: 25px 18px;
+    }
+
+    .serviceSurMesure .image img {
+        max-width: 75px;
+    }
+
+    .serviceSurMesure p {
+        line-height: 1.5;
+    }
+}
+
+/* Très petit écran : image en haut, texte dessous, lien centré */
+@media screen and (max-width: 535px) {
+
+    .services>.serviceSurMesure,
+    .services>.serviceSurMesure:last-child:nth-child(odd) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+
+        width: 100%;
+        max-width: 100%;
+        padding: 28px 18px;
+        box-sizing: border-box;
+    }
+
+    .serviceSurMesure .image {
+        order: 1;
+        margin-bottom: 20px;
+    }
+
+    .serviceSurMesure>div:last-child {
+        order: 2;
+        width: 100%;
+    }
+
+    .serviceSurMesure .image img {
+        max-width: 120px;
+    }
+
+    .serviceSurMesure h3 {
+        font-size: 1.15rem;
+        line-height: 1.35;
+    }
+
+    .serviceSurMesure p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+
+    .serviceSurMesure a {
+        display: inline-block;
+        margin-top: 28px;
+        font-size: 1rem;
+        text-align: center;
+    }
 }

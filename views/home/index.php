@@ -112,6 +112,8 @@ require_once __DIR__ . '/../layout/header.php';
 
     </section>
 
+    <?php require_once __DIR__ . '/../components/realisations-preview.php'; ?>
+
     <article class="valeurs">
         <div class="valeursImage">
             <img src="/assets/media/valeurs.webp" alt="image représentant les valeurs de JLB MULTISERVICES">
