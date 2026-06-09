@@ -402,7 +402,7 @@ body {
     justify-content: center;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1330px) {
     .contactsCard {
         width: 95%;
         max-width: 520px;
@@ -674,4 +674,116 @@ body {
 .realisationTable td[data-label="Actions"] .deleteForm {
     margin: 0;
     display: inline-flex;
+}
+
+.adminFilterForm {
+    margin: 25px 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.adminFilterForm label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 600;
+    color: #16593a;
+}
+
+.adminFilterForm select {
+    min-width: 260px;
+    padding: 10px 12px;
+    border: 1px solid #16593a;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+
+
+.serviceTable {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.serviceTable th:nth-child(1),
+.serviceTable td:nth-child(1) {
+    width: 160px;
+}
+
+.serviceTable th:nth-child(2),
+.serviceTable td:nth-child(2) {
+    width: 70px;
+    text-align: center;
+}
+
+.serviceTable th:nth-child(3),
+.serviceTable td:nth-child(3) {
+    width: 130px;
+    text-align: center;
+}
+
+.serviceTable th:nth-child(4),
+.serviceTable td:nth-child(4) {
+    width: 200px;
+}
+
+.serviceTable th:nth-child(5),
+.serviceTable td:nth-child(5) {
+    width: auto;
+}
+
+.serviceTable th:nth-child(6),
+.serviceTable td:nth-child(6) {
+    width: 260px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.serviceTable td[data-label="Actions"] {
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    min-height: 90px;
+    box-sizing: border-box;
+}
+
+.serviceTable td[data-label="Actions"] .editBtn,
+.serviceTable td[data-label="Actions"] .deleteBtn {
+    min-width: 105px;
+    height: 42px;
+    padding: 0 14px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1;
+    box-sizing: border-box;
+}
+
+.serviceTable td[data-label="Actions"] .deleteForm {
+    margin: 0;
+    display: inline-flex;
+    align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+    .tableActions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .tableActions .editBtn,
+    .tableActions .deleteBtn {
+        width: 120px;
+    }
+
+    .tableActions .deleteForm {
+        margin: 0;
+    }
 }

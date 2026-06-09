@@ -1,5 +1,11 @@
 <?php
+
 $pageTitle = "Gestion des prestations";
+
+$services = $services ?? [];
+$categories = $categories ?? [];
+$selectedCategoryId = $selectedCategoryId ?? null;
+
 ?>
 
 <!DOCTYPE html>
@@ -9,12 +15,12 @@ $pageTitle = "Gestion des prestations";
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $pageTitle ?></title>
-    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="MyWebSite" />
-    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="JLB Multiservices">
+    <link rel="manifest" href="/site.webmanifest">
     <link rel="stylesheet" href="/assets/style/admin.css">
 </head>
 
@@ -43,16 +49,46 @@ $pageTitle = "Gestion des prestations";
 
             </div>
 
+            <form method="GET" action="/admin/services" class="adminFilterForm">
+
+                <label>
+                    Filtrer par catégorie
+
+                    <select name="category_id" onchange="this.form.submit()">
+
+                        <option value="">
+                            Toutes les catégories
+                        </option>
+
+                        <?php foreach ($categories as $category) : ?>
+
+                            <option
+                                value="<?= (int) $category['id_category'] ?>"
+                                <?= (int) $selectedCategoryId === (int) $category['id_category'] ? 'selected' : '' ?>>
+
+                                <?= htmlspecialchars($category['name_category']) ?>
+
+                            </option>
+
+                        <?php endforeach; ?>
+
+                    </select>
+
+                </label>
+
+            </form>
+
             <?php if (empty($services)) : ?>
 
                 <p>Aucune prestation enregistrée.</p>
 
             <?php else : ?>
 
-                <table class="adminTable">
+                <table class="adminTable serviceTable">
 
                     <thead>
                         <tr>
+                            <th>Catégorie</th>
                             <th>Ordre</th>
                             <th>Image</th>
                             <th>Titre</th>
@@ -67,11 +103,15 @@ $pageTitle = "Gestion des prestations";
 
                             <tr>
 
-                                <td>
+                                <td data-label="Catégorie">
+                                    <?= htmlspecialchars($service['name_category'] ?? 'Aucune catégorie') ?>
+                                </td>
+
+                                <td data-label="Ordre">
                                     <?= (int) $service['display_order'] ?>
                                 </td>
 
-                                <td>
+                                <td data-label="Image">
                                     <?php if (!empty($service['image'])) : ?>
 
                                         <img
@@ -86,42 +126,48 @@ $pageTitle = "Gestion des prestations";
                                     <?php endif; ?>
                                 </td>
 
-                                <td>
+                                <td data-label="Titre">
                                     <?= htmlspecialchars($service['title']) ?>
                                 </td>
 
-                                <td class="messageCell">
+                                <td data-label="Description" class="messageCell">
                                     <?= nl2br(htmlspecialchars($service['description_service'])) ?>
                                 </td>
 
-                                <td>
-                                    <a
-                                        class="editBtn"
-                                        href="/admin/service/edit?id=<?= (int) $service['id_service'] ?>">
-                                        Modifier
-                                    </a>
+                                <td data-label="Actions">
 
-                                    <form
-                                        method="POST"
-                                        action="/admin/service/delete"
-                                        class="deleteForm"
-                                        onsubmit="return confirm('Supprimer cette prestation ?')">
+                                    <div class="tableActions">
 
-                                        <input
-                                            type="hidden"
-                                            name="id"
-                                            value="<?= (int) $service['id_service'] ?>">
+                                        <a
+                                            class="editBtn"
+                                            href="/admin/service/edit?id=<?= (int) $service['id_service'] ?>">
+                                            Modifier
+                                        </a>
 
-                                        <input
-                                            type="hidden"
-                                            name="csrf_token"
-                                            value="<?= htmlspecialchars($_SESSION['admin_csrf_token'] ?? '') ?>">
+                                        <form
+                                            method="POST"
+                                            action="/admin/service/delete"
+                                            class="deleteForm"
+                                            onsubmit="return confirm('Supprimer cette prestation ?')">
 
-                                        <button type="submit" class="deleteBtn">
-                                            Supprimer
-                                        </button>
+                                            <input
+                                                type="hidden"
+                                                name="id"
+                                                value="<?= (int) $service['id_service'] ?>">
 
-                                    </form>
+                                            <input
+                                                type="hidden"
+                                                name="csrf_token"
+                                                value="<?= htmlspecialchars($_SESSION['admin_csrf_token'] ?? '') ?>">
+
+                                            <button type="submit" class="deleteBtn">
+                                                Supprimer
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
                                 </td>
 
                             </tr>

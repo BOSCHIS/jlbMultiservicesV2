@@ -17,9 +17,7 @@ class AdminServiceController
     private function checkAdmin(): void
     {
         if (empty($_SESSION['admin'])) {
-
             header('Location: /admin/login');
-
             exit;
         }
     }
@@ -32,7 +30,13 @@ class AdminServiceController
             $_SESSION['admin_csrf_token'] = bin2hex(random_bytes(32));
         }
 
-        $services = $this->repository->findAll();
+        $selectedCategoryId = !empty($_GET['category_id'])
+            ? (int) $_GET['category_id']
+            : null;
+
+        $categories = $this->repository->findAllCategories();
+
+        $services = $this->repository->findAllForAdmin($selectedCategoryId);
 
         require_once __DIR__ . '/../../views/admin/services/index.php';
     }
@@ -55,7 +59,7 @@ class AdminServiceController
             return null;
         }
 
-        $maxSize = 2 * 1024 * 1024; // 2 Mo
+        $maxSize = 25 * 1024 * 1024;
 
         if ($file['size'] > $maxSize) {
             return null;
@@ -111,8 +115,20 @@ class AdminServiceController
         $categoryId = (int) ($_POST['category_id'] ?? 0);
         $displayOrder = (int) ($_POST['display_order'] ?? 1);
 
+        $slug = $this->repository->generateUniqueSlug($slug);
+
         if ($displayOrder < 1) {
             $displayOrder = 1;
+        }
+
+        if (
+            $title === ''
+            || $slug === ''
+            || $description === ''
+            || $categoryId <= 0
+        ) {
+            header('Location: /admin/service/create');
+            exit;
         }
 
         $imagePath = null;
@@ -121,7 +137,7 @@ class AdminServiceController
             $imagePath = $this->uploadServiceImage($_FILES['image']);
         }
 
-        $this->repository->shiftOrdersFrom($displayOrder);
+        $this->repository->shiftOrdersFrom($categoryId, $displayOrder);
 
         $this->repository->create(
             $title,
@@ -132,9 +148,9 @@ class AdminServiceController
             $imagePath
         );
 
-        $this->repository->normalizeDisplayOrders();
+        $this->repository->normalizeDisplayOrdersByCategory($categoryId);
 
-        header('Location: /admin/services');
+        header('Location: /admin/services?category_id=' . $categoryId);
         exit;
     }
 
@@ -179,17 +195,32 @@ class AdminServiceController
             exit;
         }
 
-        $categoryId = (int) ($_POST['category_id'] ?? 0);
-        $displayOrder = (int) ($_POST['display_order'] ?? 1);
+        $oldCategoryId = (int) $service['category_id'];
+        $oldOrder = (int) $service['display_order'];
+
+        $newCategoryId = (int) ($_POST['category_id'] ?? 0);
+        $newOrder = (int) ($_POST['display_order'] ?? 1);
+
         $slug = trim($_POST['slug'] ?? '');
         $title = trim($_POST['title'] ?? '');
         $description = trim($_POST['description'] ?? '');
 
-        if ($displayOrder < 1) {
-            $displayOrder = 1;
+        $slug = $this->repository->generateUniqueSlug($slug, $id);
+
+        if ($newOrder < 1) {
+            $newOrder = 1;
         }
 
-        $oldOrder = (int) $service['display_order'];
+        if (
+            $title === ''
+            || $slug === ''
+            || $description === ''
+            || $newCategoryId <= 0
+        ) {
+            header('Location: /admin/service/edit?id=' . $id);
+            exit;
+        }
+
         $imageName = $service['image'];
 
         if (isset($_FILES['image']) && !empty($_FILES['image']['name'])) {
@@ -210,25 +241,31 @@ class AdminServiceController
             }
         }
 
-        $this->repository->shiftOrdersForUpdate(
-            $id,
-            $oldOrder,
-            $displayOrder
-        );
+        if ($newCategoryId === $oldCategoryId) {
+            $this->repository->shiftOrdersForUpdate(
+                $id,
+                $newCategoryId,
+                $oldOrder,
+                $newOrder
+            );
+        } else {
+            $this->repository->shiftOrdersFrom($newCategoryId, $newOrder);
+        }
 
         $this->repository->update(
             $id,
-            $categoryId,
-            $displayOrder,
+            $newCategoryId,
+            $newOrder,
             $slug,
             $title,
             $description,
             $imageName
         );
 
-        $this->repository->normalizeDisplayOrders();
+        $this->repository->normalizeDisplayOrdersByCategory($oldCategoryId);
+        $this->repository->normalizeDisplayOrdersByCategory($newCategoryId);
 
-        header('Location: /admin/services');
+        header('Location: /admin/services?category_id=' . $newCategoryId);
         exit;
     }
 
@@ -254,7 +291,14 @@ class AdminServiceController
 
         $service = $this->repository->findById($id);
 
-        if ($service && !empty($service['image'])) {
+        if (!$service) {
+            header('Location: /admin/services');
+            exit;
+        }
+
+        $categoryId = (int) $service['category_id'];
+
+        if (!empty($service['image'])) {
             $imagePath = __DIR__ . '/../../public/assets/uploads/services/' . $service['image'];
 
             if (file_exists($imagePath)) {
@@ -264,9 +308,9 @@ class AdminServiceController
 
         $this->repository->delete($id);
 
-        $this->repository->normalizeDisplayOrders();
+        $this->repository->normalizeDisplayOrdersByCategory($categoryId);
 
-        header('Location: /admin/services');
+        header('Location: /admin/services?category_id=' . $categoryId);
         exit;
     }
 }
