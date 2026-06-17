@@ -98,9 +98,7 @@ require_once __DIR__ . '/../layout/header.php';
                 <p>
                     Vous avez un besoin spécifique ou particulier ?
                     Chez JLB MULTISERVICES, je m’adapte à votre situation et à vos contraintes.
-                </p>
-
-                <p>
+                    </br>
                     Pour obtenir votre devis personnalisé, il vous suffit de remplir notre formulaire en ligne.
                 </p>
 

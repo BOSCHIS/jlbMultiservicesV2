@@ -19,12 +19,34 @@ require_once __DIR__ . '/../layout/header.php';
 
     <section class="categoryHeader">
 
-        <h1><?= htmlspecialchars($category['name_category']) ?></h1>
+        <?php if (($category['slug_category'] ?? '') === 'nettoyage') : ?>
 
-        <p>
-            Découvrez les prestations proposées par JLB MULTISERVICES dans cette catégorie.
-            Chaque demande peut être adaptée selon vos besoins.
-        </p>
+            <h1>Nettoyage</h1>
+
+            <p>
+                JLB MULTISERVICES vous accompagne pour vos besoins en nettoyage, qu’il s’agisse de sols, vitres, terrasses, vérandas ou autres surfaces à entretenir. Chaque intervention peut être adaptée selon vos besoins, votre logement ou vos locaux.
+            </p>
+
+        <?php else : ?>
+
+            <h1><?= htmlspecialchars($category['name_category']) ?></h1>
+
+            <?php if (!empty($category['description_category'])) : ?>
+
+                <p>
+                    <?= nl2br(htmlspecialchars($category['description_category'])) ?>
+                </p>
+
+            <?php else : ?>
+
+                <p>
+                    Découvrez les prestations proposées par JLB MULTISERVICES.
+                    Chaque demande peut être adaptée selon vos besoins.
+                </p>
+
+            <?php endif; ?>
+
+        <?php endif; ?>
 
     </section>
 

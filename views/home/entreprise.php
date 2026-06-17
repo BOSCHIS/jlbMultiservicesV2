@@ -53,7 +53,7 @@ require_once __DIR__ . '/../layout/header.php';
                     <?php else : ?>
 
                         <img
-                            src="/assets/media/local.webp"
+                            src="/assets/media/logo_jlb_multiservices.png"
                             alt="Image de présentation de JLB MULTISERVICES">
 
                     <?php endif; ?>
